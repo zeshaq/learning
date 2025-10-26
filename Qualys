@@ -1,0 +1,73 @@
+Qualys is a cloud-based security and compliance platform widely used for IT, cloud, and web application security. It provides tools to identify, assess, and remediate vulnerabilities across your infrastructure.
+
+Here’s a detailed breakdown:
+
+1. Overview
+
+Founded in 1999, now a major player in cloud security.
+
+Offers a SaaS platform, so you don’t need to deploy heavy on-prem tools.
+
+Focused on vulnerability management, compliance, and continuous monitoring.
+
+2. Key Features / Modules
+
+Vulnerability Management (VM)
+
+Scans IT assets (servers, endpoints, cloud workloads) for known vulnerabilities.
+
+Provides risk scoring and remediation guidance.
+
+Policy Compliance (PC)
+
+Checks systems against security policies and compliance standards (CIS, PCI-DSS, HIPAA, ISO 27001).
+
+Generates compliance reports.
+
+Web Application Scanning (WAS)
+
+Scans web apps for OWASP Top 10 vulnerabilities (SQLi, XSS, etc.).
+
+Identifies misconfigurations and potential attack vectors.
+
+File Integrity Monitoring (FIM)
+
+Monitors critical files for unauthorized changes.
+
+Helps detect potential intrusions or malware activity.
+
+Continuous Monitoring (CM)
+
+Real-time alerts for new vulnerabilities or security issues in your environment.
+
+Monitors networks, endpoints, and cloud workloads.
+
+Asset Management
+
+Inventory all IT assets across on-prem, cloud, and endpoints.
+
+Track patch levels and vulnerabilities per asset.
+
+Threat Protection
+
+Correlates vulnerabilities with active threats.
+
+Prioritizes remediation based on risk and exploitability.
+
+3. Deployment / Usage
+
+Cloud-native: no heavy on-premises installation.
+
+Agent-based scanning: lightweight agents on servers, endpoints, containers.
+
+Agentless scanning: network scanning of IP ranges or cloud environments.
+
+4. Why Companies Use Qualys
+
+Centralized view of security posture.
+
+Continuous compliance monitoring for audits.
+
+Reduces risk by identifying and prioritizing vulnerabilities.
+
+Supports hybrid and multi-cloud environments.

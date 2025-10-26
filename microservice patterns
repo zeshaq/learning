@@ -1,0 +1,137 @@
+microservice patterns
+
+1. Decomposition Patterns
+
+How to split a monolith or design microservices.
+
+Decompose by Business Capability
+Each microservice represents a specific business function.
+Example: Order Service, Payment Service, Inventory Service.
+
+Decompose by Subdomain (DDD)
+Based on Domain-Driven Design (DDD) bounded contexts.
+Example: Bounded context for Customer Management vs Order Management.
+
+Decompose by Workflow
+Microservices follow business workflows or process flows.
+Example: Checkout Service orchestrates Payment Service and Inventory Service.
+
+2. Integration Patterns
+
+How microservices communicate with each other.
+
+API Gateway Pattern
+A single entry point for clients, handling routing, authentication, throttling, etc.
+Tools: Kong, Apisix, Spring Cloud Gateway.
+
+Aggregator Pattern
+API Gateway or another service calls multiple microservices and aggregates results.
+
+Backend for Frontend (BFF)
+Different API tailored for each client (web, mobile).
+
+Service Mesh Pattern
+Decouples networking concerns (routing, retries, security) from business logic.
+Tools: Istio, Linkerd.
+
+Event-Driven / Messaging Pattern
+Services communicate asynchronously via events.
+Tools: Kafka, RabbitMQ, NATS.
+
+3. Database Patterns
+
+How microservices manage data.
+
+Database per Service
+Each service owns its database to maintain autonomy.
+
+Shared Database (Anti-Pattern)
+Multiple services using the same database schema (not recommended).
+
+Saga Pattern (Distributed Transactions)
+Manages long-running transactions across multiple services.
+Example: Order Service deducts inventory → Payment Service charges card → confirm order.
+
+CQRS (Command Query Responsibility Segregation)
+Separate read and write models to optimize performance.
+
+Event Sourcing
+Store state changes as events instead of current state.
+Use case: Audit logs, financial transactions.
+
+4. Observability Patterns
+
+How to monitor and manage microservices.
+
+Log Aggregation
+Centralized logging (ELK, Loki).
+
+Distributed Tracing
+Track requests across services.
+Tools: Jaeger, Zipkin, OpenTelemetry.
+
+Health Check / Circuit Breaker
+Detect failures and prevent cascading failures.
+Tools: Resilience4j, Hystrix.
+
+Metrics & Alerts
+Track performance and resource usage.
+Tools: Prometheus, Grafana.
+
+5. Resiliency & Fault Tolerance Patterns
+
+Make microservices robust.
+
+Circuit Breaker
+Stop calling a failing service to prevent cascading failures.
+
+Retry / Backoff
+Retry failed calls with exponential backoff.
+
+Bulkhead
+Isolate resources to prevent system-wide failure.
+
+Timeouts & Fallbacks
+Provide alternative responses if a service is unavailable.
+
+6. Deployment Patterns
+
+How to deploy and scale microservices.
+
+Multiple Service Instances
+Horizontal scaling for load balancing.
+
+Blue-Green Deployment
+Deploy new version alongside old and switch traffic.
+
+Canary Deployment
+Gradual rollout of new version to subset of users.
+
+Sidecar Pattern
+Deploy helper components alongside a service (e.g., logging, proxy).
+
+Strangler Fig Pattern
+Incrementally replace monolith with microservices.
+
+7. Security Patterns
+
+Secure microservices communication.
+
+Token-Based Authentication (JWT / OAuth2)
+Decentralized auth across services.
+
+API Gateway Security
+Enforce rate-limiting, authentication, IP filtering.
+
+Service-to-Service Authentication
+Mutual TLS or signed tokens.
+
+8. Anti-Patterns to Avoid
+
+Chatty Services – too many network calls between services.
+
+Distributed Monolith – services are tightly coupled despite being separate.
+
+Shared Database – multiple services using same database tables.
+
+Ignoring Observability – leads to operational headaches.

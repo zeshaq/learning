@@ -25,8 +25,13 @@ loki
 minio
 glusterfs 
 ceph csi 
-
+Kyverno
 
 gitlab 
 
 keda
+
+Couchdb
+Cassandra
+Coakrochdb 
+Valkey

@@ -1,0 +1,71 @@
+Cloud-Native Application Protection Platform.
+
+CNAPP is a security platform designed to protect cloud-native applications across their entire lifecycle — from development to runtime — by combining multiple security functionalities in a single solution.
+
+Think of it as “cloud-native security + DevSecOps + runtime protection” rolled into one.
+
+2. Key Goals
+
+Secure cloud workloads, containers, serverless functions, and Kubernetes clusters.
+
+Detect misconfigurations in cloud infrastructure (AWS, Azure, GCP, etc.).
+
+Provide threat detection and vulnerability management.
+
+Integrate security early in the CI/CD pipeline (shift-left security).
+
+3. Core Components / Features
+
+A CNAPP typically combines several tools into one platform:
+
+CSPM (Cloud Security Posture Management)
+
+Ensures your cloud accounts, IAM policies, storage, and network are configured securely.
+
+Detects misconfigurations and compliance violations.
+
+CWPP (Cloud Workload Protection Platform)
+
+Runtime protection for VMs, containers, and serverless workloads.
+
+Includes malware detection, integrity monitoring, and behavioral analysis.
+
+Vulnerability Management
+
+Scans container images, serverless functions, and code for vulnerabilities.
+
+IAM Security / Entitlement Management
+
+Detects excessive privileges and identity risks.
+
+Compliance & Audit
+
+Continuous monitoring for standards like CIS, SOC2, PCI-DSS, GDPR.
+
+Threat Detection & Response
+
+Identifies attacks, misbehavior, or anomalous activities in real-time.
+
+DevSecOps Integration
+
+Shift-left security: integrates with CI/CD pipelines (e.g., GitLab, GitHub Actions, Jenkins).
+
+4. Popular CNAPP Vendors
+
+Palo Alto Prisma Cloud
+
+Microsoft Defender for Cloud
+
+Trend Micro Cloud One
+
+Check Point CloudGuard
+
+Snyk (more developer-focused)
+
+5. Why CNAPP is Important
+
+Traditional security tools often focus only on runtime or only on cloud configuration.
+
+CNAPP unifies security visibility, detection, and protection across the entire cloud-native stack.
+
+Critical for multi-cloud or hybrid cloud environments.

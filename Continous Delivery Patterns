@@ -1,0 +1,173 @@
+1. Deployment Patterns
+
+How code moves from development to production.
+
+Blue-Green Deployment
+
+Two identical environments (Blue = current, Green = new).
+
+Switch traffic from Blue → Green when ready.
+
+Pros: Zero downtime, easy rollback.
+
+Tools: Kubernetes, Spinnaker.
+
+Canary Deployment
+
+Gradually release a new version to a subset of users.
+
+Monitor metrics → increase traffic if stable.
+
+Pros: Risk mitigation, early bug detection.
+
+Tools: Istio, Flagger, Argo Rollouts.
+
+Rolling Deployment
+
+Incrementally replace instances of the old version with the new one.
+
+Pros: No downtime, smooth transition.
+
+Tools: Kubernetes Deployment, AWS ECS.
+
+A/B Testing Deployment
+
+Serve different versions to different user groups.
+
+Pros: Test features and collect metrics before full rollout.
+
+Shadow Deployment
+
+Run new version alongside production without affecting users.
+
+Pros: Test performance & correctness in real production load.
+
+2. Pipeline Patterns
+
+How code is built, tested, and deployed.
+
+Build Pipeline
+
+Compile code, run unit tests, and build artifacts.
+
+Tools: Jenkins, GitLab CI, GitHub Actions.
+
+Test Automation
+
+Unit Tests: Fast, run on every commit.
+
+Integration Tests: Test service interactions.
+
+End-to-End Tests: Test complete workflows.
+
+Performance Tests: Validate load and latency.
+
+Artifact Repository
+
+Store immutable build artifacts for deployment.
+
+Tools: Nexus, Artifactory.
+
+Continuous Deployment vs Continuous Delivery
+
+Continuous Delivery: Code is always ready to deploy; deployment may be manual.
+
+Continuous Deployment: Every passing build is automatically deployed.
+
+3. Environment Patterns
+
+How different stages/environments are managed.
+
+Immutable Infrastructure
+
+Never modify running servers; deploy new instances for each release.
+
+Tools: Terraform, Kubernetes.
+
+Environment Parity
+
+Keep dev, staging, and prod as similar as possible to reduce “it works on my machine” problems.
+
+Feature Toggles / Flags
+
+Deploy code with features disabled; toggle them on/off without redeploying.
+
+Tools: LaunchDarkly, Unleash.
+
+4. Testing & Quality Patterns
+
+Ensure safe deployment.
+
+Shift-Left Testing
+
+Move testing earlier in the pipeline (unit + static analysis at commit).
+
+Canary Metrics Monitoring
+
+Rollout only if key metrics (error rate, latency) are acceptable.
+
+Rollback / Auto-Rollback
+
+Automatically revert to previous version on failures.
+
+Chaos Testing / Fault Injection
+
+Test how deployments handle failures in production-like environments.
+
+Tools: Chaos Monkey, Gremlin.
+
+5. Observability Patterns
+
+Monitor and validate deployments.
+
+Health Checks & Readiness Probes
+
+Ensure new versions are ready before serving traffic.
+
+Logging & Aggregation
+
+Centralize logs for debugging and analysis.
+
+Tools: ELK Stack, Loki, Splunk.
+
+Distributed Tracing
+
+Track requests across services to detect issues post-deployment.
+
+Tools: Jaeger, OpenTelemetry.
+
+Metrics & Alerts
+
+Monitor error rates, latency, throughput.
+
+Tools: Prometheus + Grafana, Datadog.
+
+6. Security & Compliance Patterns
+
+Deploy safely without compromising security.
+
+Secrets Management
+
+Keep credentials out of code; inject at runtime.
+
+Tools: HashiCorp Vault, Kubernetes Secrets.
+
+Policy Enforcement
+
+Enforce security and compliance checks in CI/CD pipelines.
+
+Tools: Open Policy Agent (OPA), Kyverno.
+
+Immutable Deployments for Compliance
+
+Avoid manual changes in production; everything is versioned.
+
+7. Anti-Patterns to Avoid
+
+Manual Deployment Steps – increase human error.
+
+Undocumented Rollbacks – makes failures costly.
+
+Skipping Automated Tests – leads to unsafe deployments.
+
+Environment Drift – staging ≠ production causes surprises.
