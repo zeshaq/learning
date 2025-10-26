@@ -2,13 +2,16 @@
 
 
 Kubernetes:
-    gateway api
+    gateway api class 
     opa gatekeepr
     cilium
 
+
+
 Redis:
+    Pubsub sub
+    cache
 Kafka:
-redis:
 Kasten:
 Argocd
 gitlab
@@ -41,3 +44,24 @@ crossplane
 cAdvisor
 Open Cluster Management
 karmada
+ansible 
+terraform
+chef 
+puppet
+
+vault 
+
+traefik
+nginx ingress 
+kube fed
+consul
+
+
+k8gb
+
+jaeger
+dynatrace
+
+Black Duck Operator (Synopsys) software composition analysis (SCA) 
+
+kustomize

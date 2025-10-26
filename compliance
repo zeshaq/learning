@@ -1,0 +1,193 @@
+Kubernetes Compliance
+
+
+1. Compliance Goals
+
+✅ Ensure regulatory adherence
+
+🔒 Enforce security baselines
+
+🧩 Maintain configuration consistency
+
+🕵️‍♂️ Enable auditing and accountability
+
+2. Compliance Frameworks
+🧱 Common Industry Standards
+
+CIS Benchmark
+
+Kubernetes Security Hardening guidelines
+
+Node, control plane, API server configurations
+
+NIST 800-53 / 800-190
+
+Cloud-native security and containerized environments
+
+ISO 27001
+
+Information security management
+
+SOC 2
+
+Security and operational controls for service orgs
+
+PCI-DSS
+
+Protecting cardholder data in cloud workloads
+
+HIPAA
+
+Healthcare data protection
+
+3. Core Compliance Areas
+🛠️ Configuration Management
+
+Misconfigurations in manifests or YAMLs
+
+Pod security (runAsNonRoot, privileged=false)
+
+RBAC and API access controls
+
+Admission controllers for policy enforcement
+
+🧩 Security Controls
+
+Image scanning
+
+Network segmentation
+
+Secret management (avoid plaintext secrets)
+
+Logging and monitoring
+
+🕵️‍♀️ Auditing & Monitoring
+
+API audit logs
+
+Kubernetes events
+
+Audit pipelines (Fluent Bit, Loki, Elasticsearch)
+
+4. Popular Tools
+🧰 Policy & Governance
+
+OPA (Open Policy Agent)
+
+Rego language for writing compliance policies
+
+Used in Gatekeeper, Kyverno
+
+Kyverno
+
+Policy engine native to Kubernetes (YAML-based)
+
+Enforce pod security, labels, annotations
+
+Kubewarden
+
+WebAssembly-based policy controller
+
+🧾 Benchmarking & Scanning
+
+Kube-Bench (by Aqua Security)
+
+Runs CIS Kubernetes Benchmark tests
+
+CLI or automated CI/CD integration
+
+Kube-Hunter (by Aqua Security)
+
+Penetration testing tool for clusters
+
+Detects exposed APIs and insecure configurations
+
+Trivy (by Aqua Security)
+
+Scans images, filesystems, and configs for vulnerabilities
+
+Falco (by Sysdig)
+
+Runtime security detection (syscalls, audit events)
+
+🧩 Compliance Platforms
+
+Kubescape (by ARMO)
+
+Scans for misconfigurations and RBAC violations
+
+Maps results to frameworks (CIS, NSA, MITRE)
+
+NeuVector (by SUSE)
+
+Container firewall and compliance auditing
+
+Anchore Enterprise / Grype
+
+Image compliance and vulnerability scanning
+
+Aqua Security Platform
+
+Full compliance and runtime protection suite
+
+Prisma Cloud (by Palo Alto)
+
+Policy as code and compliance dashboard
+
+🧠 Multi-cluster Governance
+
+Red Hat Advanced Cluster Security (ACS)
+
+Centralized compliance and risk dashboard
+
+Open Cluster Management (OCM)
+
+Apply policies across clusters
+
+Karmada
+
+Federated management with policy propagation
+
+5. Automation & Integration
+
+CI/CD Gatekeeping
+
+Enforce policies in pipelines (OPA/Kyverno in Tekton, GitLab, ArgoCD)
+
+GitOps Integration
+
+Continuous compliance enforcement with ArgoCD or Flux
+
+Continuous Scanning
+
+Regular scans of cluster state and workloads
+
+6. Reporting & Visibility
+
+Compliance Dashboards
+
+Prometheus + Grafana for metrics
+
+Centralized reports via ELK stack
+
+Audit Trails
+
+Kubernetes audit logs → Loki / Elasticsearch
+
+Alerting
+
+Falco / OPA violations trigger notifications via Slack, Email, SIEM
+
+7. Best Practices
+
+🧩 Use Namespace isolation for compliance zones
+
+🔐 Enforce least privilege RBAC
+
+📜 Enable API Server Auditing
+
+🧱 Automate policy testing in CI/CD
+
+🔁 Regularly re-run CIS Benchmarks
+
+🧠 Implement continuous compliance monitoring

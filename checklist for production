@@ -48,6 +48,9 @@ Authentication/Authorization in place
 
 Dependency vulnerability scans (Snyk, Trivy)
 
+
+
+
 2. Containerization
 
  Container image
@@ -73,6 +76,9 @@ Immutable image tags
 CPU/memory requests set
 
 CPU/memory limits set
+
+
+
 
 3. Kubernetes Deployment
 
@@ -118,6 +124,8 @@ Minimum permissions for each service
 
 Avoid running containers as root
 
+
+
 4. Networking
 
  Network policies
@@ -141,6 +149,9 @@ Test with expected traffic patterns
  Egress controls
 
 Limit access to external resources
+
+
+
 
 5. Observability
 
@@ -168,6 +179,8 @@ Grafana dashboards for key metrics
 
 Kubernetes audit enabled for sensitive actions
 
+
+
 6. Reliability & Resilience
 
  Health checks (reiterated)
@@ -192,6 +205,9 @@ Disaster recovery plan
 
 Simulate failures to verify resiliency
 
+
+
+
 7. CI/CD & Release
 
  Pipeline readiness
@@ -211,6 +227,9 @@ Semantic versioning of services
  Deployment gating
 
 Manual approvals for production
+
+
+
 
 8. Security & Compliance
 
@@ -237,6 +256,9 @@ NetworkPolicy enforcement
  Compliance checks
 
 GDPR, HIPAA, SOC2 if applicable
+
+
+
 
 9. Performance & Scalability
 

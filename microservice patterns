@@ -16,6 +16,9 @@ Decompose by Workflow
 Microservices follow business workflows or process flows.
 Example: Checkout Service orchestrates Payment Service and Inventory Service.
 
+
+
+
 2. Integration Patterns
 
 How microservices communicate with each other.
@@ -38,6 +41,8 @@ Event-Driven / Messaging Pattern
 Services communicate asynchronously via events.
 Tools: Kafka, RabbitMQ, NATS.
 
+
+
 3. Database Patterns
 
 How microservices manage data.
@@ -59,6 +64,8 @@ Event Sourcing
 Store state changes as events instead of current state.
 Use case: Audit logs, financial transactions.
 
+
+
 4. Observability Patterns
 
 How to monitor and manage microservices.
@@ -78,6 +85,9 @@ Metrics & Alerts
 Track performance and resource usage.
 Tools: Prometheus, Grafana.
 
+
+
+
 5. Resiliency & Fault Tolerance Patterns
 
 Make microservices robust.
@@ -93,6 +103,8 @@ Isolate resources to prevent system-wide failure.
 
 Timeouts & Fallbacks
 Provide alternative responses if a service is unavailable.
+
+
 
 6. Deployment Patterns
 
@@ -113,6 +125,8 @@ Deploy helper components alongside a service (e.g., logging, proxy).
 Strangler Fig Pattern
 Incrementally replace monolith with microservices.
 
+
+
 7. Security Patterns
 
 Secure microservices communication.
@@ -125,6 +139,8 @@ Enforce rate-limiting, authentication, IP filtering.
 
 Service-to-Service Authentication
 Mutual TLS or signed tokens.
+
+
 
 8. Anti-Patterns to Avoid
 

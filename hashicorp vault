@@ -1,0 +1,206 @@
+HashiCorp Vault
+
+
+1. Core Purpose
+
+🔐 Secrets Management
+
+Securely store API keys, passwords, tokens, and certificates
+
+🧠 Dynamic Secrets
+
+Generate credentials on demand (e.g., database, AWS IAM)
+
+🔏 Encryption as a Service
+
+Centralized data encryption/decryption via API
+
+🕵️‍♂️ Access Control & Auditing
+
+Enforce least-privilege access and maintain audit trails
+
+2. Architecture Overview
+🧱 Components
+
+Vault Server
+
+Core service handling API requests and secret operations
+
+Storage Backend
+
+Persists encrypted data (e.g., Consul, Raft, DynamoDB, etcd)
+
+Seal/Unseal Mechanism
+
+Vault sealed on startup; requires unseal keys (Shamir’s Secret Sharing)
+
+Barrier Encryption
+
+All stored data is encrypted before writing to backend
+
+🔗 Communication
+
+API-driven
+
+JSON REST APIs for apps and tools
+
+TLS
+
+Mandatory encryption in transit
+
+3. Secret Engines
+🧰 Static Secrets
+
+Key/Value (KV)
+
+Basic secret storage engine
+
+Supports versioning (KV v2)
+
+⚙️ Dynamic Secrets
+
+Database Engine
+
+On-demand DB credentials (MySQL, PostgreSQL, MongoDB, etc.)
+
+AWS / Azure / GCP Engine
+
+Temporary cloud credentials with TTL
+
+PKI Engine
+
+Generate short-lived X.509 certificates
+
+SSH Engine
+
+Dynamic SSH key signing
+
+RabbitMQ / MongoDB / Cassandra / Kafka
+
+Ephemeral credentials for service access
+
+🔐 Encryption Engine
+
+Transit Engine
+
+Perform encrypt/decrypt/sign operations without storing data
+
+Enables “encryption as a service” model
+
+4. Authentication Methods
+👤 Identity Providers
+
+Userpass — basic user login
+
+LDAP / Active Directory — enterprise directory integration
+
+OIDC / OAuth / Okta — SSO integration
+
+GitHub / GitLab / JWT — CI/CD and app authentication
+
+Kubernetes Auth
+
+Authenticate workloads using service account tokens
+
+AppRole
+
+For automated access by applications or machines
+
+5. Access Control
+🧩 Policy System
+
+Written in HCL (HashiCorp Configuration Language) or JSON
+
+Define ACL policies to restrict access
+
+Policies bound to identities, groups, or roles
+
+🧠 Namespaces (Enterprise Feature)
+
+Multi-tenancy for large organizations
+
+6. High Availability & Scalability
+🏗️ HA Backends
+
+Integrated Storage (Raft) — built-in and cluster-aware
+
+Consul — distributed storage and leader election
+
+DynamoDB / etcd — cloud-native backends
+
+🔄 Auto-Unseal
+
+Uses HSM, AWS KMS, or Google KMS for automated startup
+
+Avoids manual unseal key entry
+
+7. Audit Logging
+
+Logs all API requests and responses
+
+Supports file-based, socket-based, and syslog outputs
+
+Can forward to SIEM tools (Splunk, ELK, etc.)
+
+8. Integrations & Ecosystem
+☸️ Kubernetes
+
+Vault Agent Injector
+
+Automatically injects secrets into pods
+
+Vault CSI Driver
+
+Mount secrets as volumes
+
+Sidecar authentication with Kubernetes Auth method
+
+🧱 DevOps & CI/CD
+
+Jenkins, GitLab CI, GitHub Actions integration
+
+Terraform provider for Vault
+
+ArgoCD + Vault for secure GitOps secrets
+
+☁️ Cloud Integration
+
+AWS IAM Auth + Dynamic AWS credentials
+
+Azure MSI & GCP IAM integration
+
+9. Security Features
+
+Sealed by default
+
+Shamir’s Secret Sharing (threshold unseal keys)
+
+Audit logs for all access
+
+Short-lived credentials (TTL-based)
+
+Encryption key rotation support
+
+10. Popular Use Cases
+
+🔐 Centralized secrets for microservices and CI/CD
+
+☸️ Secure Kubernetes workloads (via Vault Agent)
+
+🧩 Database credential rotation
+
+☁️ Cloud access with ephemeral credentials
+
+🧠 Application-level encryption (Transit engine)
+
+🧾 Certificate management with PKI engine
+
+11. Alternatives / Complementary Tools
+
+CyberArk Conjur — enterprise-grade secrets management
+
+AWS Secrets Manager / Parameter Store — cloud-native
+
+Azure Key Vault / GCP Secret Manager
+
+Sealed Secrets / External Secrets Operator — for Kubernetes
