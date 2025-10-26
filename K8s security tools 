@@ -1,0 +1,69 @@
+1. Vulnerability Scanning
+
+Trivy – Scans container images, file systems, and Git repos for vulnerabilities.
+
+Clair – Open-source project for static analysis of vulnerabilities in container images.
+
+Anchore Engine – Scans images for vulnerabilities, policy compliance, and best practices.
+
+Aqua Security – Commercial tool for container image scanning and runtime protection.
+
+2. Runtime Security & Threat Detection
+
+Falco – Monitors runtime behavior of containers and pods; detects abnormal activity.
+
+Sysdig Secure – Commercial runtime security, auditing, and compliance monitoring.
+
+Aqua Trivy Runtime – Monitors live workloads for security threats.
+
+3. Configuration & Policy Enforcement
+
+OPA (Open Policy Agent) – General-purpose policy engine, often used with Gatekeeper for K8s.
+
+Gatekeeper – Implements OPA policies for Kubernetes admission control.
+
+Kyverno – Kubernetes-native policy engine for validation, mutation, and generation.
+
+Kube-bench – Checks Kubernetes clusters against CIS Benchmarks for security best practices.
+
+Kubesec – Security risk analysis for Kubernetes manifests.
+
+4. Secrets Management
+
+HashiCorp Vault – Centralized secret management with dynamic secrets support.
+
+SealedSecrets (Bitnami) – Encrypts Kubernetes Secrets for safe storage in Git.
+
+External Secrets Operator – Fetch secrets from external stores (AWS Secrets Manager, GCP Secret Manager).
+
+5. Network Security
+
+Calico – Network policies, segmentation, and security for Kubernetes networking.
+
+Cilium – Provides networking, security, and observability using eBPF.
+
+Kube-router – Implements network policies and L3/L4 networking for K8s clusters.
+
+6. Supply Chain Security
+
+Snyk – Scans container images, dependencies, and IaC manifests for vulnerabilities.
+
+Anchore Enterprise – Tracks and enforces policies for container supply chains.
+
+Grafeas / Kritis – Open-source tools for enforcing software supply chain security.
+
+7. Audit & Compliance
+
+Kube-hunter – Scans K8s clusters for security issues and misconfigurations.
+
+K9s + Audit Logs – Visualization and auditing of cluster events.
+
+OpenSCAP – Compliance and vulnerability checking.
+
+8. Multi-Feature Security Platforms
+
+Aqua Security – Image scanning, runtime protection, compliance, and secrets management.
+
+Sysdig Secure – Vulnerability management, runtime security, and compliance.
+
+StackRox (Red Hat Advanced Cluster Security) – Enterprise security for Kubernetes workloads.

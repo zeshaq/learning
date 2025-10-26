@@ -1,0 +1,148 @@
+Cluster Architecture
+ ├─ Broker Design
+ │    ├─ Multiple brokers for partition distribution
+ │    ├─ Dedicated hardware for brokers
+ │    ├─ Rack-awareness → avoid single point of failure
+ │    └─ Cluster size → scale with throughput & topic count
+ ├─ Zookeeper / KRaft
+ │    ├─ Kafka 3.x+ → KRaft mode (Zookeeper-less)
+ │    ├─ Zookeeper → coordination for older versions
+ │    └─ Ensemble size → 3–5 nodes (odd number for quorum)
+ ├─ Multi-Cluster / Geo-Replication
+ │    ├─ MirrorMaker 2 → cross-cluster replication
+ │    └─ Active-active → optional with conflict-free setup
+ └─ Topic Design
+      ├─ Partition count → based on throughput & consumers
+      ├─ Replication factor → ≥3 for high availability
+      ├─ Keyed partitions → preserve order
+      └─ Retention policies → based on storage & compliance
+
+Scaling
+ ├─ Horizontal Scaling
+ │    ├─ Add brokers → linear scaling
+ │    ├─ Increase partitions per topic → parallelism
+ │    └─ Consumer groups → parallel consumption
+ ├─ Vertical Scaling
+ │    ├─ CPU & memory tuning for brokers
+ │    ├─ SSD / NVMe storage for log segments
+ │    └─ Network bandwidth → 10/25/100Gbps NICs
+ ├─ Throughput Optimization
+ │    ├─ Batch size tuning (producer.batch.size)
+ │    ├─ Linger.ms → allow batching
+ │    ├─ Compression (snappy, zstd, lz4)
+ │    └─ Acks → acks=1 or acks=all (tradeoff latency vs durability)
+ └─ Latency Optimization
+      ├─ ISR tuning → min.insync.replicas
+      ├─ Rack-awareness → reduce cross-rack latency
+      └─ Avoid over-partitioning → high metadata overhead
+
+
+Storage
+ ├─ Log Segments → manage size & rollover
+ ├─ Retention Policy → time-based or size-based
+ ├─ Cleanup Policy → delete vs compacted topics
+ ├─ Disk I/O Optimization
+ │    ├─ Dedicated storage per broker
+ │    ├─ SSDs / NVMe for high throughput
+ │    └─ Avoid network storage for hot partitions
+ ├─ Disk monitoring → ensure free space
+ └─ Tiered Storage (Kafka 3.x+) → archive old segments
+
+Replication & HA
+ ├─ Replication Factor → ≥3 for critical topics
+ ├─ ISR (In-Sync Replica) → monitor replicas for lag
+ ├─ Leader Election
+ │    ├─ Prefer preferred leader placement
+ │    └─ Minimize leader bounce
+ ├─ Rack Awareness → distribute replicas across AZs
+ ├─ Auto Data Balancing → Kafka Reassign Partitions tool
+ └─ Failover → monitor leader failover latency
+
+
+Networking
+ ├─ Broker-to-broker → dedicated NIC / VLAN
+ ├─ Producer-to-broker → high throughput settings
+ │    ├─ Max.request.size
+ │    ├─ Compression
+ │    └─ Batch size & linger.ms
+ ├─ Consumer → fetch.min.bytes / fetch.max.wait.ms
+ ├─ Network tuning
+ │    ├─ tcp_buffer_size
+ │    ├─ jumbo frames (if applicable)
+ │    └─ low-latency switches & topology
+ └─ Avoid network bottlenecks → monitor traffic & partitions
+
+Monitoring
+ ├─ Metrics
+ │    ├─ Broker CPU / memory / disk usage
+ │    ├─ Network throughput / bytes in/out
+ │    ├─ ISR & under-replicated partitions
+ │    ├─ Request latencies (produce / fetch)
+ │    └─ Consumer lag per topic & partition
+ ├─ Tools
+ │    ├─ Prometheus + JMX exporter
+ │    ├─ Grafana dashboards
+ │    ├─ Confluent Control Center
+ │    └─ LinkedIn Cruise Control → automated balancing
+ ├─ Alerts
+ │    ├─ Broker down / unresponsive
+ │    ├─ High under-replicated partitions
+ │    ├─ Disk full / high I/O wait
+ │    └─ Consumer lag threshold
+ └─ Logging
+      ├─ Broker logs
+      ├─ Producer / Consumer logs
+      └─ Audit for topic & config changes
+
+Security
+ ├─ Authentication
+ │    ├─ SASL / Kerberos / SCRAM
+ │    └─ TLS client authentication
+ ├─ Encryption
+ │    ├─ TLS in transit
+ │    └─ Optional disk encryption for brokers
+ ├─ Authorization
+ │    ├─ ACLs per topic / consumer group / user
+ │    └─ Role-based access control
+ ├─ Network isolation → VPC, firewall rules
+ └─ Audit Logging → monitor producer/consumer operations
+
+Client Best Practices
+ ├─ Producers
+ │    ├─ Async sending with batching
+ │    ├─ Compression → reduce network load
+ │    ├─ Idempotent producer → avoid duplicates
+ │    └─ Configure retries → retry.backoff.ms
+ ├─ Consumers
+ │    ├─ Use consumer groups → scale consumption
+ │    ├─ Manual commit vs auto commit → control offsets
+ │    ├─ Monitor lag → alert if behind
+ │    └─ Use partition assignment strategies → balance load
+ └─ Middleware / Proxy
+      ├─ Kafka REST Proxy → optional
+      └─ Avoid unnecessary hops / proxies for high throughput
+
+Operational Practices
+ ├─ Backup / Disaster Recovery
+ │    ├─ MirrorMaker 2 → cross-cluster replication
+ │    ├─ Periodic topic export → offline storage
+ │    └─ Tiered storage → Kafka 3.x+
+ ├─ Configuration Management
+ │    ├─ Version-controlled configs
+ │    └─ Rolling updates of brokers
+ ├─ Capacity Planning
+ │    ├─ Estimate partitions × replication factor × message size
+ │    └─ Ensure sufficient disk & network
+ ├─ Load Testing → benchmark throughput, latency, and cluster limits
+ ├─ Rolling Upgrades → zero downtime where possible
+ └─ Chaos Testing → simulate broker failures / network partitions
+
+
+Key Principles
+ ├─ Horizontal scaling → partitions + brokers
+ ├─ Avoid single point of failure → replication + rack-awareness
+ ├─ Monitor everything → CPU, memory, disk, network, lag
+ ├─ Optimize producer & consumer settings → batching, compression
+ ├─ Storage & retention planning → disk size, cleanup policy
+ ├─ Security → TLS, ACLs, auditing
+ └─ Test failover, scaling, and disaster recovery regularly

@@ -1,0 +1,65 @@
+ArgoCD
+│
+├── Overview
+│   ├── GitOps tool for Kubernetes
+│   ├── Continuous Delivery (CD)
+│   ├── Declarative deployments
+│   └── Monitors Git repositories for changes
+│
+├── Architecture
+│   ├── API Server
+│   │   └── REST/gRPC endpoints for CLI/UI
+│   ├── Repository Server
+│   │   └── Pulls manifests from Git, Helm, Kustomize
+│   ├── Application Controller
+│   │   └── Reconciles desired vs actual cluster state
+│   ├── Dex (Optional)
+│   │   └── Handles SSO authentication
+│   └── CLI & Web UI
+│       └── Provides management interface
+│
+├── Key Concepts
+│   ├── Application
+│   │   ├── Represents Kubernetes app
+│   │   ├── Source: Git/Helm/Kustomize
+│   │   └── Target: Cluster & namespace
+│   ├── Sync
+│   │   ├── Automatic or manual
+│   │   └── Keeps cluster state aligned with Git
+│   ├── Health Status
+│   │   ├── Healthy
+│   │   ├── Degraded
+│   │   └── Suspended
+│   └── Rollback & History
+│       └── Tracks deployment revisions
+│
+├── Deployment Strategies
+│   ├── Blue-Green
+│   ├── Canary
+│   ├── Rolling Updates
+│   └── Sync Hooks (PreSync, Sync, PostSync)
+│
+├── Integrations
+│   ├── Git Providers (GitHub, GitLab, Bitbucket)
+│   ├── Helm Charts
+│   ├── Kustomize Overlays
+│   ├── SSO (Dex, OIDC, LDAP)
+│   └── Notifications (Slack, Teams, Email)
+│
+├── Security
+│   ├── RBAC (Role-Based Access Control)
+│   ├── SSO integration
+│   ├── Secret Management (SealedSecrets, SOPS)
+│   └── TLS for communication
+│
+├── Observability
+│   ├── Metrics (Prometheus)
+│   ├── Logs
+│   ├── Events
+│   └── Web UI dashboards
+│
+└── CLI & Automation
+    ├── argocd login
+    ├── argocd app create / sync / delete
+    ├── argocd cluster add
+    └── argocd app diff / history / rollback

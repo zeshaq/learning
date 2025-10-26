@@ -1,0 +1,69 @@
+Container Orchestration & Runtime
+ ├─ Kubernetes → Container orchestration
+ ├─ OpenShift → Kubernetes + enterprise features
+ ├─ Docker → Container runtime
+ ├─ containerd → Lightweight container runtime
+ ├─ CRI-O → Kubernetes CRI runtime
+ └─ Podman → Daemonless container engine
+CI/CD & GitOps
+ ├─ Jenkins X → CI/CD for K8s
+ ├─ Tekton → Kubernetes-native pipelines
+ ├─ Argo Workflows → Workflow automation
+ ├─ Argo CD → GitOps continuous delivery
+ ├─ Flux → GitOps for K8s
+ └─ Spinnaker → Continuous delivery platform
+Service Mesh & Networking
+ ├─ Istio → Service mesh
+ ├─ Linkerd → Lightweight service mesh
+ ├─ Consul → Service discovery & service mesh
+ ├─ Envoy → L7 proxy & load balancer
+ ├─ Cilium → Networking, security & observability
+ └─ Calico → Network policy & CNI
+Monitoring & Observability
+ ├─ Prometheus → Metrics collection
+ ├─ Grafana → Visualization & dashboards
+ ├─ Loki → Logging
+ ├─ Fluentd → Logging & data collection
+ ├─ Jaeger → Distributed tracing
+ ├─ OpenTelemetry → Telemetry framework
+ └─ Cortex / Thanos → Scalable Prometheus
+Storage & Data Management
+ ├─ Rook → Storage orchestration for K8s
+ ├─ Ceph → Distributed storage
+ ├─ Longhorn → Cloud-native block storage
+ ├─ Vitess → Sharded MySQL on K8s
+ ├─ MinIO → Object storage (S3-compatible)
+ └─ TiKV → Distributed key-value storage
+Security & Policy
+ ├─ OPA / Gatekeeper → Policy enforcement
+ ├─ SPIFFE / SPIRE → Identity & workload attestation
+ ├─ Notary → Container image signing
+ ├─ Harbor → Container registry with security scanning
+ ├─ Trivy → Vulnerability scanning
+ └─ Falco → Runtime security / anomaly detection
+Edge & IoT
+ ├─ KubeEdge → Edge computing framework
+ ├─ OpenYurt → Edge computing extension
+ ├─ Eclipse ioFog → IoT & edge orchestration
+ └─ Fledge → Industrial IoT
+Observability & Eventing
+ ├─ Knative → Serverless & event-driven workloads
+ ├─ NATS → Messaging & pub/sub
+ ├─ Kafka → Event streaming
+ ├─ Redpanda → Kafka-compatible streaming
+ └─ Argo Events → Event-driven workflows
+Serverless
+ ├─ Knative → Serverless on K8s
+ ├─ OpenFaaS → Functions-as-a-Service
+ ├─ Kubeless → Serverless K8s
+ └─ Fission → Fast function deployment on K8s
+Debugging & Tracing
+ ├─ Jaeger → Distributed tracing
+ ├─ OpenTelemetry → Metrics, traces, logs
+ ├─ Pixie → Observability for K8s
+ └─ Parca → Continuous profiling
+Package Management
+ ├─ Helm → Kubernetes package manager
+ ├─ Kustomize → Declarative configuration management
+ ├─ Operator Framework → Kubernetes operators
+ └─ Crossplane → Cloud resource orchestration

@@ -1,0 +1,142 @@
+Architecture
+ ├─ Deployment Types
+ │    ├─ Standalone → Single instance (not recommended for high-volume)
+ │    ├─ Master-Slave → Read scaling with replicas
+ │    ├─ Redis Sentinel → High availability with automatic failover
+ │    ├─ Redis Cluster → Horizontal scaling & sharding
+ │    └─ Active-Active / Enterprise (Redis Enterprise) → Multi-region write
+ │
+ ├─ Topology Considerations
+ │    ├─ Node placement (availability zones, racks)
+ │    ├─ Shard distribution → minimize hot keys
+ │    └─ Replication factor → 1–3 replicas for HA
+ │
+ ├─ Deployment Options
+ │    ├─ Bare metal → Maximum performance
+ │    ├─ Virtual machines → Flexibility but slight overhead
+ │    ├─ Kubernetes → Containerized with StatefulSets + persistent storage
+ │    └─ Cloud-managed → AWS Elasticache / Azure Redis Cache / GCP MemoryStore
+
+
+Scaling
+ ├─ Vertical Scaling
+ │    ├─ Bigger instance (CPU / RAM)
+ │    ├─ Faster disks / NVMe if using AOF or persistence
+ │    └─ Network bandwidth tuning
+ │
+ ├─ Horizontal Scaling
+ │    ├─ Redis Cluster → Automatic key-based sharding
+ │    ├─ Read replicas → Offload reads
+ │    └─ Proxy layer (Twemproxy / Envoy) → Client-side sharding & connection pooling
+ │
+ ├─ Key Considerations
+ │    ├─ Hot keys → Avoid single-key bottlenecks
+ │    ├─ Client-side vs server-side sharding
+ │    └─ Shard rebalancing → minimal downtime
+Persistence
+ ├─ RDB → Snapshot-based persistence
+ │    ├─ Periodic saving
+ │    └─ Faster recovery, less disk I/O
+ ├─ AOF → Append-only file
+ │    ├─ Every write logged
+ │    ├─ fsync policies: always / every sec / no fsync
+ │    └─ Slower writes but safer
+ ├─ Hybrid (RDB + AOF) → Balance durability and performance
+ ├─ Backup Strategy → Regular snapshots & offsite storage
+ └─ Disaster Recovery → Cross-region replication
+
+Memory Management
+ ├─ Max memory → Configure based on node size
+ ├─ Eviction policies
+ │    ├─ noeviction → Fail if full
+ │    ├─ allkeys-lru → Least Recently Used eviction
+ │    ├─ volatile-lru → Evict keys with TTL
+ │    ├─ allkeys-random / volatile-random
+ │    └─ allkeys-lfu → Least Frequently Used (Redis 4+)
+ ├─ Data compression → Optional (for large strings)
+ └─ Object sizing → Keep keys & values uniform to avoid fragmentation
+
+Networking & Performance
+ ├─ Connection management
+ │    ├─ Maxclients → Avoid overload
+ │    ├─ Connection pooling at app layer
+ │    └─ Pipelining → Batch commands for throughput
+ ├─ TCP tuning
+ │    ├─ tcp-keepalive
+ │    └─ tcp-backlog / socket buffers
+ ├─ Cluster topology
+ │    ├─ Replication lag monitoring
+ │    └─ Multi-AZ placement → low latency
+ ├─ Latency optimization
+ │    ├─ Use faster NICs
+ │    ├─ Dedicated network for Redis traffic
+ │    └─ Minimize cross-node network hops
+ └─ OS tuning
+      ├─ Transparent huge pages off
+      ├─ Swappiness = 0
+      └─ File descriptor limit (ulimit)
+
+High Availability
+ ├─ Sentinel
+ │    ├─ Automatic failover
+ │    ├─ Monitoring of master & replicas
+ │    └─ Client notification via sentinel API
+ ├─ Cluster
+ │    ├─ Multiple master nodes
+ │    ├─ Automatic slot reallocation on node failure
+ │    └─ Replication for HA
+ ├─ Redis Enterprise
+ │    ├─ Active-active replication
+ │    ├─ Cross-region resilience
+ │    └─ Transparent failover
+ └─ Testing
+      ├─ Chaos testing → simulate node failures
+      └─ Monitor failover times
+
+Monitoring
+ ├─ Redis Metrics
+ │    ├─ Memory usage, fragmentation
+ │    ├─ Keyspace hits/misses
+ │    ├─ Latency per command
+ │    ├─ Connected clients
+ │    └─ Replication lag
+ ├─ Tools
+ │    ├─ Redis Exporter + Prometheus
+ │    ├─ Grafana dashboards
+ │    ├─ Datadog / NewRelic integrations
+ │    └─ Slowlog for command bottlenecks
+ └─ Alerts
+      ├─ High memory usage
+      ├─ Latency spikes
+      ├─ Node unreachable
+      └─ Eviction / failover events
+
+Security
+ ├─ Authentication → requirepass / ACLs
+ ├─ TLS encryption → In transit
+ ├─ Network isolation → VPC, firewall rules
+ ├─ Role-based access → Limit admin commands
+ ├─ Audit logging → Monitor writes, key deletions
+ └─ Client validation → Prevent untrusted clients
+
+Client Usage
+ ├─ Use connection pooling → avoid reconnect storms
+ ├─ Pipelining → batch writes for high throughput
+ ├─ Use Redis Cluster aware clients
+ ├─ Avoid blocking commands → BRPOP, BLPOP on large datasets
+ ├─ Lua scripts → atomic operations
+ └─ Avoid very large keys → prefer smaller, structured objects
+
+Best Practices
+ ├─ Prefer Redis Cluster over single instance
+ ├─ Monitor replication lag and memory pressure
+ ├─ Use eviction policies suitable for your workload
+ ├─ Keep backup strategy tested & automated
+ ├─ Use dedicated hardware / network for high throughput
+ ├─ Avoid hot keys → shard or hash properly
+ └─ Test failover and scaling regularly
+
+
+
+
+

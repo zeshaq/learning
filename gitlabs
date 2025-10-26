@@ -1,0 +1,62 @@
+GitLab Main Features
+│
+├── Version Control
+│   ├── Git repository management
+│   ├── Branching and merging
+│   ├── Merge requests (PR equivalent)
+│   └── Code review & approval workflows
+│
+├── CI/CD (Continuous Integration / Continuous Delivery)
+│   ├── Pipelines for automated builds, tests, and deployments
+│   ├── Auto DevOps (predefined CI/CD templates)
+│   ├── Multi-stage pipelines
+│   ├── Manual and scheduled jobs
+│   └── Environment management & deployments
+│
+├── Project Management
+│   ├── Issue tracking
+│   ├── Milestones & roadmaps
+│   ├── Epics & task boards
+│   └── Burndown charts & analytics
+│
+├── Security & Compliance
+│   ├── Static Application Security Testing (SAST)
+│   ├── Dynamic Application Security Testing (DAST)
+│   ├── Dependency Scanning
+│   ├── Container Scanning
+│   ├── License compliance checks
+│   └── Audit logs & access control
+│
+├── Code Quality & Testing
+│   ├── Unit & integration testing in pipelines
+│   ├── Code coverage reports
+│   ├── Linting & formatting
+│   └── Merge request approvals & code review rules
+│
+├── Package & Container Registry
+│   ├── Built-in Docker registry
+│   ├── Support for Maven, NPM, PyPI, Helm charts
+│   └── Artifact storage for CI/CD jobs
+│
+├── Monitoring & Observability
+│   ├── Prometheus integration
+│   ├── Metrics dashboards
+│   ├── Alerts and notifications
+│   └── Error tracking
+│
+├── Collaboration & Communication
+│   ├── Wiki & documentation
+│   ├── Discussion threads on issues & merge requests
+│   ├── Notifications & mentions
+│   └── Code snippets / snippets sharing
+│
+├── DevSecOps Automation
+│   ├── Security scans in pipelines
+│   ├── Compliance automation
+│   └── Policy enforcement
+│
+└── Integrations & Extensibility
+    ├── Webhooks & APIs
+    ├── Third-party integrations (Slack, Jira, Kubernetes)
+    ├── GitLab Runner for custom CI/CD execution
+    └── GitOps support with Kubernetes

@@ -1,0 +1,89 @@
+
+Cluster Architecture
+ ├── Control Plane
+ │    ├─ High-availability (multi-master)
+ │    ├─ Etcd clustering & backup
+ │    ├─ API server scaling
+ │    └─ Scheduler optimization
+ │
+ ├── Worker Nodes
+ │    ├─ Node sizing (CPU, memory, GPU if needed)
+ │    ├─ Node autoscaling (Cluster Autoscaler)
+ │    ├─ OS tuning (kernel, cgroups, sysctl)
+ │    └─ Resource isolation (taints & tolerations)
+ │
+ ├── Multi-Cluster / Hybrid
+ │    ├─ Federation or cluster API
+ │    ├─ Edge & cloud integration
+ │    └─ Cluster segmentation for latency / fault isolation
+
+Compute & Workload
+ ├─ CPU / Memory / GPU allocation
+ ├─ Vertical Pod Autoscaler (VPA)
+ ├─ Horizontal Pod Autoscaler (HPA)
+ ├─ Pod resource requests & limits
+ ├─ QoS classes (Guaranteed / Burstable / BestEffort)
+ ├─ Node affinity & anti-affinity
+ └─ Workload isolation with namespaces & network policies
+
+Networking
+ ├─ CNI choice (Calico, Cilium, Flannel, Weave)
+ ├─ Network policies for isolation & security
+ ├─ Load balancing (Service type: ClusterIP, NodePort, LoadBalancer)
+ ├─ Ingress controllers & API gateway
+ ├─ Service mesh (Istio, Linkerd) for observability / traffic management
+ └─ DNS & service discovery optimization
+
+
+Storage
+ ├─ Persistent Volumes (PV) & Persistent Volume Claims (PVC)
+ ├─ Storage Classes & dynamic provisioning
+ ├─ High-performance storage (Ceph, Portworx, Longhorn, NVMe drives)
+ ├─ Backup & restore strategies
+ └─ StatefulSets for databases / queues
+
+Observability
+ ├─ Metrics (Prometheus + Node/Pod exporters)
+ ├─ Logging (ELK/EFK stack, Loki)
+ ├─ Tracing (Jaeger, OpenTelemetry)
+ ├─ Alerts & notifications (Alertmanager, PagerDuty, Slack)
+ └─ Dashboards (Grafana, K8s Dashboard)
+
+Security
+ ├─ RBAC & service accounts
+ ├─ Pod Security Standards / Policies
+ ├─ Secrets management (K8s Secrets, HashiCorp Vault)
+ ├─ Network segmentation (network policies)
+ ├─ Image scanning & admission controllers
+ └─ TLS / mTLS for services
+
+
+CI/CD & GitOps
+ ├─ GitOps tooling (Argo CD, Flux)
+ ├─ Automated deployment pipelines
+ ├─ Progressive delivery (canary, blue-green)
+ ├─ Rollbacks & versioned manifests
+ └─ Integration with CI tools (GitLab CI, Jenkins, Tekton)
+
+
+Performance & Reliability
+ ├─ Node & Pod auto-scaling
+ ├─ Cluster autoscaler & over-provisioning
+ ├─ Resource & quota management
+ ├─ High availability & failover strategies
+ ├─ Load testing & benchmarking
+ └─ QoS for latency-sensitive workloads
+
+Backup & DR
+ ├─ Etcd backups & restores
+ ├─ Application-level backups (databases, PVs)
+ ├─ Cluster snapshots
+ ├─ Multi-region / multi-AZ replication
+ └─ Rolling upgrades & zero-downtime patching
+
+Automation
+ ├─ Helm charts & Kustomize for templating
+ ├─ Operators for databases / messaging systems
+ ├─ Infrastructure as Code (Terraform, Crossplane)
+ ├─ Policy enforcement (OPA/Gatekeeper)
+ └─ Auto-remediation (Argo Events, K8s controllers)

@@ -1,0 +1,32 @@
+
+
+
+Kubernetes:
+    gateway api
+    opa gatekeepr
+    cilium
+
+Redis:
+Kafka:
+redis:
+Kasten:
+Argocd
+gitlab
+istio
+velero
+snyk
+jenkins
+
+prometheus
+grafana
+tempo
+loki
+
+minio
+glusterfs 
+ceph csi 
+
+
+gitlab 
+
+keda
