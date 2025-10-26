@@ -1,0 +1,151 @@
+
+
+Infrastructure as Code (IaC)
+
+1. IaC Overview
+
+Definition: Automating infrastructure provisioning using code.
+
+Benefits:
+
+Consistency & repeatability
+
+Version control & auditability
+
+Faster deployments
+
+Reduced human error
+
+2. IaC Approaches
+
+Declarative
+
+Describe what the infrastructure should look like.
+
+Tools: Terraform, Kubernetes manifests, Pulumi (declarative mode), CloudFormation
+
+Imperative
+
+Describe how to create the infrastructure step by step.
+
+Tools: Ansible (tasks), Chef, Puppet, Pulumi (imperative mode)
+
+3. IaC Tools
+
+Terraform
+
+Cloud-agnostic, declarative
+
+State management
+
+Modules for reuse
+
+CloudFormation
+
+AWS native, declarative
+
+Stack management
+
+Ansible
+
+Procedural/imperative
+
+Configuration management + provisioning
+
+Chef / Puppet
+
+Configuration management focus
+
+Declarative recipes/manifests
+
+Pulumi
+
+Modern IaC in programming languages (Python, Go, TypeScript)
+
+CDK (Cloud Development Kit)
+
+AWS CDK / Azure Bicep
+
+Use programming language to define infrastructure
+
+Kubernetes Manifests / Helm
+
+Containerized infrastructure
+
+Declarative YAML/Helm charts
+
+4. IaC Components
+
+Resources
+
+VMs, Containers, Networks, Databases, Load Balancers
+
+Modules / Templates
+
+Reusable code blocks
+
+Variables
+
+Environment-specific configurations
+
+Outputs
+
+Values exported for other modules/services
+
+State
+
+Track deployed resources (Terraform state, CloudFormation stack)
+
+Secrets Management
+
+Vault, AWS Secrets Manager, Kubernetes Secrets
+
+5. IaC Practices
+
+Version Control
+
+Git for tracking infrastructure changes
+
+CI/CD Integration
+
+Automated plan/apply on pull requests
+
+Testing
+
+Unit testing (terraform validate)
+
+Integration testing (Terratest, KitchenCI)
+
+Modularization
+
+Create reusable modules
+
+Environment Management
+
+Separate dev/staging/prod configurations
+
+Policy as Code
+
+Sentinel (Terraform), OPA/Gatekeeper for compliance
+
+6. Advanced Topics
+
+Immutable Infrastructure
+
+Replace instead of patching
+
+Blue-Green / Canary Deployments
+
+Zero-downtime infrastructure changes
+
+Drift Detection
+
+Detect divergence from desired state
+
+Multi-Cloud / Hybrid
+
+IaC for multiple cloud providers
+
+Secret Rotation
+
+Automate rotation of credentials, keys, certificates

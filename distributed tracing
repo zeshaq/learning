@@ -1,0 +1,66 @@
+Distributed Tracing
+│
+├─ 1. Purpose
+│   ├─ Track requests across services
+│   ├─ Identify latency bottlenecks
+│   ├─ Map service dependencies
+│   └─ Debug failures and errors
+│
+├─ 2. Core Concepts
+│   ├─ Trace
+│   │   └─ Represents a single request journey
+│   ├─ Span
+│   │   ├─ A single unit of work within a trace
+│   │   ├─ Has start time, end time, duration
+│   │   └─ Contains metadata (tags, logs)
+│   ├─ Context Propagation
+│   │   └─ Pass trace IDs and span IDs across service calls
+│   ├─ Sampling
+│   │   ├─ Full Sampling
+│   │   └─ Probabilistic Sampling
+│   └─ Annotations / Metadata
+│       ├─ Key-value tags
+│       └─ Logs/events per span
+│
+├─ 3. Instrumentation
+│   ├─ Manual Instrumentation
+│   │   └─ Adding tracing code in services
+│   ├─ Automatic / Library Instrumentation
+│   │   ├─ OpenTelemetry SDKs
+│   │   └─ Framework-specific tracers (Spring, Express, etc.)
+│   └─ Context Propagation Libraries
+│       ├─ gRPC interceptors
+│       └─ HTTP middleware
+│
+├─ 4. Data Collection
+│   ├─ Tracing Backends
+│   │   ├─ Jaeger
+│   │   ├─ Zipkin
+│   │   ├─ LightStep
+│   │   └─ Grafana Tempo
+│   └─ Storage
+│       ├─ In-memory
+│       ├─ SQL / NoSQL
+│       └─ Object Storage (for long-term traces)
+│
+├─ 5. Visualization
+│   ├─ Trace timelines
+│   ├─ Service dependency graphs
+│   ├─ Latency heatmaps
+│   └─ Span details and annotations
+│
+├─ 6. Integration
+│   ├─ Metrics Correlation
+│   │   └─ Link traces with Prometheus/Datadog metrics
+│   ├─ Log Correlation
+│   │   └─ Connect span IDs with structured logs
+│   └─ Alerting
+│       └─ Trigger alerts on slow traces or error spikes
+│
+└─ 7. Best Practices
+    ├─ Instrument critical paths first
+    ├─ Use standardized trace formats (W3C Trace Context)
+    ├─ Set sampling wisely to avoid overload
+    ├─ Propagate trace context in async calls
+    ├─ Correlate with logs and metrics
+    └─ Continuously monitor latency trends

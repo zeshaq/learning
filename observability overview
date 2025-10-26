@@ -1,0 +1,81 @@
+Observability
+│
+├─ 1. Metrics
+│   ├─ System Metrics
+│   │   ├─ CPU Usage
+│   │   ├─ Memory Usage
+│   │   ├─ Disk I/O
+│   │   └─ Network Throughput
+│   ├─ Application Metrics
+│   │   ├─ Request Latency
+│   │   ├─ Error Rate
+│   │   └─ Throughput (RPS)
+│   └─ Tools
+│       ├─ Prometheus
+│       ├─ Graphite
+│       └─ Datadog
+│
+├─ 2. Logs
+│   ├─ Structured Logs
+│   │   ├─ JSON Logs
+│   │   └─ Key-Value Logs
+│   ├─ Centralized Logging
+│   │   ├─ ELK Stack (Elasticsearch, Logstash, Kibana)
+│   │   ├─ Fluentd / Fluent Bit
+│   │   └─ Loki (Grafana)
+│   └─ Analysis & Alerts
+│       ├─ Splunk
+│       └─ Graylog
+│
+├─ 3. Traces
+│   ├─ Distributed Tracing
+│   │   ├─ Request Flow across services
+│   │   ├─ Latency Breakdown
+│   │   └─ Dependency Mapping
+│   ├─ Protocols & Formats
+│   │   ├─ OpenTelemetry
+│   │   ├─ Jaeger
+│   │   └─ Zipkin
+│   └─ Tools
+│       ├─ LightStep
+│       └─ Grafana Tempo
+│
+├─ 4. Events
+│   ├─ Alerts
+│   │   ├─ Threshold-based
+│   │   └─ Anomaly-based
+│   ├─ Notifications
+│   │   ├─ PagerDuty
+│   │   └─ OpsGenie
+│   └─ Change Events
+│       ├─ Deployment
+│       └─ Configuration Changes
+│
+├─ 5. Observability Platform / APM
+│   ├─ Full-stack Observability
+│   │   ├─ Application Performance Monitoring
+│   │   ├─ Real User Monitoring (RUM)
+│   │   └─ Synthetic Monitoring
+│   └─ Tools
+│       ├─ New Relic
+│       ├─ Dynatrace
+│       ├─ Datadog APM
+│       └─ AppDynamics
+│
+├─ 6. Visualization & Dashboards
+│   ├─ Grafana
+│   ├─ Kibana
+│   └─ Chronograf
+│
+├─ 7. Correlation & Analytics
+│   ├─ Root Cause Analysis
+│   ├─ Log-Metrics-Traces Correlation
+│   └─ Machine Learning / AI Ops
+│
+└─ 8. Best Practices
+    ├─ Instrument Everything
+    ├─ Use Contextual Logging
+    ├─ Define SLIs, SLOs, SLAs
+    ├─ Monitor both Infrastructure and Application
+    ├─ Set Up Alerting and On-call Processes
+    └─ Continuous Improvement via Observability Feedback

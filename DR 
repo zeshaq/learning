@@ -1,0 +1,77 @@
+Kubernetes Disaster Recovery
+│
+├─ 1. Objectives
+│   ├─ Minimize Downtime (RTO)
+│   ├─ Minimize Data Loss (RPO)
+│   ├─ Ensure Business Continuity
+│   └─ Maintain Compliance & Auditability
+│
+├─ 2. Backup & Restore
+│   ├─ etcd Backups
+│   │   ├─ Tool: etcdctl snapshot
+│   │   └─ Function: Takes cluster state snapshot; can restore etcd on failure
+│   ├─ Persistent Volume Backups
+│   │   ├─ Tool: CSI VolumeSnapshot
+│   │   │   └─ Function: Creates snapshot of PVs, supports restore
+│   │   ├─ Tool: Cloud Provider Snapshots (AWS EBS, GCP PD, Azure Disk)
+│   │   │   └─ Function: Off-cluster storage and quick restore
+│   ├─ Cluster Configuration Backup
+│   │   ├─ Tool: kubectl / kustomize / GitOps (ArgoCD, Flux)
+│   │   │   └─ Function: Export manifests for redeployment
+│   └─ Full DR Tools
+│       ├─ Velero
+│       │   ├─ Backup: Cluster state + PVs
+│       │   ├─ Restore: Namespace, cluster, or PV restore
+│       │   └─ Migration: Move workloads across clusters
+│       ├─ Kasten K10
+│       │   ├─ Backup: Application-level & PVs
+│       │   ├─ Restore: Point-in-time restore
+│       │   └─ Disaster Recovery Orchestration
+│       └─ Stash by AppsCode
+│           ├─ Backup: PV + resources
+│           └─ Restore: Supports scheduled restore
+│
+├─ 3. Multi-Cluster / Multi-Region Setup
+│   ├─ Active-Active
+│   │   ├─ Tool: Istio / Linkerd for global service routing
+│   │   └─ Function: Synchronous replication and load balancing
+│   ├─ Active-Passive
+│   │   ├─ Tool: Velero / Kasten K10
+│   │   └─ Function: Failover to standby cluster using backups
+│   └─ Cluster Federation
+│       ├─ Tool: KubeFed
+│       └─ Function: Synchronize resources across clusters
+│
+├─ 4. Application Recovery Strategies
+│   ├─ Stateful Applications
+│   │   ├─ Tool: Database native replication (MySQL, PostgreSQL, MongoDB)
+│   │   └─ Function: Keep data in sync across regions
+│   ├─ Stateless Applications
+│   │   ├─ Tool: GitOps (ArgoCD, Flux)
+│   │   └─ Function: Redeploy manifests automatically
+│   └─ Configuration & Secrets
+│       ├─ Tool: HashiCorp Vault / AWS KMS / Sealed Secrets
+│       └─ Function: Restore encrypted secrets and configuration
+│
+├─ 5. Automation & Orchestration
+│   ├─ DR Playbooks / Runbooks
+│   ├─ Automated Failover
+│   │   ├─ Tool: ExternalDNS / Cloud Load Balancer
+│   │   └─ Function: Automatically switch traffic to healthy cluster
+│   └─ Health Checks & Monitoring
+│       ├─ Tool: Prometheus + Grafana
+│       └─ Function: Alert on node/cluster failures
+│
+├─ 6. Testing & Validation
+│   ├─ Regular DR Drills
+│   ├─ Simulated Failures
+│   ├─ Test restore from backups
+│   └─ Validate RTO / RPO targets
+│
+└─ 7. Best Practices
+    ├─ Keep off-cluster backups
+    ├─ Automate recovery steps
+    ├─ Encrypt backup data
+    ├─ Document DR procedures
+    ├─ Version manifests for easy redeployment
+    └─ Monitor recovery readiness continuously

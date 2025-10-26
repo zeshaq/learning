@@ -1,0 +1,79 @@
+Microservice Performance Monitoring
+│
+├─ 1. Objectives
+│   ├─ Detect latency & bottlenecks
+│   ├─ Track throughput & load
+│   ├─ Identify errors & failures
+│   └─ Optimize resource utilization
+│
+├─ 2. Metrics
+│   ├─ Application Metrics
+│   │   ├─ Request Latency
+│   │   ├─ Error Rate / Exceptions
+│   │   ├─ Throughput (RPS)
+│   │   └─ Service-specific metrics (business KPIs)
+│   ├─ System Metrics
+│   │   ├─ CPU / Memory Usage
+│   │   ├─ Disk I/O
+│   │   └─ Network throughput
+│   └─ Custom Metrics
+│       └─ Domain-specific metrics via instrumentation
+│
+├─ 3. Logging
+│   ├─ Centralized Logging
+│   │   ├─ ELK Stack (Elasticsearch, Logstash, Kibana)
+│   │   ├─ Fluentd / Fluent Bit
+│   │   └─ Loki / Grafana
+│   └─ Structured & Contextual Logs
+│       ├─ Correlate with trace IDs
+│       └─ Include request context and metadata
+│
+├─ 4. Distributed Tracing
+│   ├─ Purpose
+│   │   ├─ Track requests across services
+│   │   ├─ Identify latency bottlenecks
+│   │   └─ Map service dependencies
+│   ├─ Tools
+│   │   ├─ OpenTelemetry
+│   │   ├─ Jaeger
+│   │   ├─ Zipkin
+│   │   ├─ LightStep
+│   │   └─ Grafana Tempo
+│   └─ Data Collected
+│       ├─ Trace IDs & Span IDs
+│       ├─ Request timings
+│       └─ Annotations / metadata
+│
+├─ 5. Alerts & Notifications
+│   ├─ Threshold-based Alerts
+│   ├─ Anomaly Detection / AI Ops
+│   └─ Integration
+│       ├─ PagerDuty
+│       ├─ OpsGenie
+│       └─ Slack / Email
+│
+├─ 6. Visualization & Dashboards
+│   ├─ Grafana
+│   ├─ Kibana
+│   ├─ Datadog Dashboards
+│   └─ New Relic / Dynatrace
+│
+├─ 7. Monitoring Tools
+│   ├─ Prometheus
+│   │   └─ Metrics scraping & alerting
+│   ├─ Grafana
+│   │   └─ Visualization
+│   ├─ Datadog / New Relic / Dynatrace
+│   │   └─ Full-stack observability + APM
+│   ├─ OpenTelemetry
+│   │   └─ Instrumentation + traces + metrics
+│   └─ ELK / Loki
+│       └─ Centralized logging
+│
+├─ 8. Best Practices
+│   ├─ Instrument all services & critical paths
+│   ├─ Correlate logs, metrics, and traces
+│   ├─ Monitor both application & infrastructure
+│   ├─ Use SLIs, SLOs, SLAs
+│   ├─ Automate alerts & remediation
+│   └─ Continuously analyze and optimize performance

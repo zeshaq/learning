@@ -1,0 +1,73 @@
+Kubernetes Backup
+│
+├─ 1. Backup Scope
+│   ├─ etcd Data
+│   │   └─ Cluster state, configmaps, secrets, CRDs
+│   ├─ Persistent Volumes (PV)
+│   │   ├─ Block storage
+│   │   └─ File storage
+│   ├─ Namespaces / Resources
+│   │   ├─ Deployments, Services
+│   │   ├─ ConfigMaps, Secrets
+│   │   └─ Custom Resources (CRDs)
+│   └─ Cluster Metadata
+│       ├─ RBAC
+│       └─ Network Policies
+│
+├─ 2. Backup Methods
+│   ├─ etcd Snapshots
+│   │   ├─ Built-in etcdctl snapshot
+│   │   └─ Automated cron snapshots
+│   ├─ Volume Snapshots
+│   │   ├─ CSI VolumeSnapshot
+│   │   └─ Cloud-provider snapshots (AWS EBS, GCP PD, Azure Disk)
+│   ├─ Resource Export
+│   │   ├─ kubectl get -o yaml/json
+│   │   └─ GitOps repository (configuration as code)
+│   └─ Full Cluster Backup Tools
+│       ├─ Velero
+│       ├─ Kasten K10
+│       └─ Stash by AppsCode
+│
+├─ 3. Backup Storage Options
+│   ├─ Object Storage
+│   │   ├─ S3 / MinIO
+│   │   ├─ GCS
+│   │   └─ Azure Blob
+│   ├─ Network Storage
+│   │   ├─ NFS
+│   │   └─ SMB
+│   └─ Local Storage
+│       └─ Node disk snapshots
+│
+├─ 4. Recovery / Restore
+│   ├─ Disaster Recovery
+│   │   ├─ Cluster recreation
+│   │   └─ Cross-region restore
+│   ├─ Namespace / Resource Restore
+│   │   ├─ Selective restore
+│   │   └─ Application-level restore
+│   ├─ Volume Restore
+│   │   ├─ CSI restore
+│   │   └─ Cloud snapshot restore
+│   └─ Validation
+│       ├─ Test restore regularly
+│       └─ DR drills
+│
+├─ 5. Automation & Scheduling
+│   ├─ CronJobs
+│   ├─ Backup policies
+│   │   ├─ Retention
+│   │   ├─ Versioning
+│   │   └─ Incremental / differential backup
+│   └─ Alerts / Monitoring
+│       ├─ Backup success/failure notifications
+│       └─ Metrics tracking
+│
+└─ 6. Best Practices
+    ├─ Backup etcd frequently
+    ├─ Use off-cluster storage for redundancy
+    ├─ Encrypt backups at rest and in transit
+    ├─ Automate restores and test regularly
+    ├─ Use consistent snapshot mechanisms for PVs
+    └─ Integrate backups with GitOps and CI/CD pipelines
