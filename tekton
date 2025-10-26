@@ -1,0 +1,72 @@
+Tekton
+│
+├─ 1. Overview
+│   ├─ Kubernetes-native CI/CD
+│   ├─ Declarative pipelines as Kubernetes CRDs
+│   ├─ Cloud-agnostic
+│   └─ Integrates with GitOps and existing CI/CD tools
+│
+├─ 2. Core Concepts
+│   ├─ Task
+│   │   ├─ Smallest unit of work
+│   │   ├─ Containerized steps
+│   │   └─ Defined as Tekton CRD
+│   ├─ Pipeline
+│   │   ├─ Sequence of Tasks
+│   │   └─ Defines dependencies and order
+│   ├─ PipelineRun
+│   │   └─ Executes a Pipeline
+│   ├─ TaskRun
+│   │   └─ Executes a Task
+│   ├─ PipelineResource (deprecated in Tekton 0.21+)
+│   │   ├─ Git, Image, Storage, Cluster resources
+│   │   └─ Used as inputs/outputs for Tasks
+│   ├─ Params
+│   │   └─ Parameterize Pipelines or Tasks
+│   ├─ Workspaces
+│   │   └─ Shared storage between Tasks
+│   └─ Results
+│       └─ Output values from Tasks
+│
+├─ 3. Triggers
+│   ├─ Event-driven execution
+│   ├─ Tekton Trigger CRDs
+│   │   ├─ TriggerTemplate: template for PipelineRun/TaskRun
+│   │   ├─ TriggerBinding: maps event payload to params
+│   │   └─ EventListener: webhook endpoint to listen to events
+│   └─ Integrations
+│       ├─ GitHub, GitLab, Bitbucket webhooks
+│       └─ Cloud events
+│
+├─ 4. Observability & Logging
+│   ├─ Pod logs for Task/Step execution
+│   ├─ Tekton Dashboard
+│   │   └─ Visualize Pipelines, Tasks, and Runs
+│   ├─ Metrics
+│   │   ├─ Prometheus metrics
+│   │   └─ Track success/failure, duration, latency
+│   └─ Tracing
+│       └─ OpenTelemetry integration possible
+│
+├─ 5. Common Tools & Integrations
+│   ├─ Tekton CLI (tkn)
+│   ├─ Tekton Dashboard
+│   ├─ GitHub Actions / GitLab CI integration
+│   ├─ ArgoCD / Flux (GitOps integration)
+│   └─ Artifact storage
+│       ├─ OCI images (Harbor, DockerHub)
+│       └─ MinIO / S3 for build artifacts
+│
+├─ 6. Security
+│   ├─ RBAC for Pipeline/Task execution
+│   ├─ ServiceAccounts for task Pods
+│   └─ Secret management
+│       └─ Kubernetes Secrets / Vault integration
+│
+├─ 7. Best Practices
+│   ├─ Keep Tasks small and reusable
+│   ├─ Parameterize Pipelines for flexibility
+│   ├─ Version control for Pipeline CRDs
+│   ├─ Use Workspaces for persistent storage
+│   ├─ Monitor metrics and logs for reliability
+│   └─ Integrate with GitOps for automated deployments
