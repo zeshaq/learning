@@ -1,0 +1,608 @@
+Red Hat Advanced Cluster Security (ACS) — Mind Map
+🔹 1. Core Purpose
+
+Kubernetes-native security platform
+
+Provides visibility, compliance, threat detection, and runtime protection
+
+Covers the entire container lifecycle: build → deploy → runtime
+
+🔹 2. Core Components
+🧩 Central (Management Plane)
+
+The brain of ACS — provides UI, API, policy engine, reporting
+
+Aggregates data from all clusters
+
+Stores vulnerability data, compliance reports, and policies
+
+Deployed once (can be HA)
+
+🧩 Sensor (Cluster Component)
+
+Runs on each OpenShift/Kubernetes cluster
+
+Collects data from Kubernetes API, container runtime, and network layer
+
+Enforces policies in real time
+
+Communicates securely with Central
+
+🧩 Collector (Runtime Sensor)
+
+Gathers system-level runtime data (from kernel, container engine)
+
+Detects runtime threats, suspicious processes, privilege escalations, etc.
+
+Integrated with Sensor
+
+🧩 Scanner
+
+Performs image scanning for vulnerabilities (CVEs)
+
+Checks container images pre-deployment (CI/CD integration) and post-deployment
+
+Uses Red Hat vulnerability database (feeds from CVE sources + RH advisories)
+
+🔹 3. Security Lifecycle Coverage
+🧱 Build Phase
+
+Integrates with CI/CD tools (GitLab, Jenkins, Tekton)
+
+Scans images during builds
+
+Enforces “fail pipeline if vulnerable” policies
+
+Detects secrets or insecure base images
+
+🚀 Deploy Phase
+
+Validates images before deployment
+
+Ensures compliance with deployment policies
+
+e.g., “No containers running as root”
+
+“No unscanned images allowed”
+
+Integrates with OpenShift admission controller for enforcement
+
+🕵️ Runtime Phase
+
+Continuous monitoring of running containers
+
+Detects:
+
+Suspicious processes (e.g., unexpected shell, crypto mining)
+
+Network anomalies
+
+Privilege escalation attempts
+
+Alerts and optionally auto-blocks threats
+
+🔹 4. Policy Engine
+
+Policy-as-Code model (YAML definitions)
+
+Hundreds of built-in policies + user-defined ones
+
+Policy categories:
+
+Vulnerability management
+
+Configuration best practices
+
+Compliance (CIS, NIST, PCI-DSS, HIPAA, etc.)
+
+Runtime behavior rules
+
+Image content restrictions
+
+🔹 5. Integrations
+
+CI/CD Systems: Jenkins, Tekton, GitLab, GitHub Actions
+
+Image Registries: Quay, Docker Hub, Harbor
+
+SIEM / Alerting: Splunk, Syslog, Slack, Webhooks
+
+Kubernetes Admission Controller: Enforces security at deployment time
+
+API / CLI Tools: roxctl (command-line tool)
+
+🔹 6. Reporting & Compliance
+
+Compliance Dashboards: for standards like PCI, NIST, CIS
+
+Vulnerability Reports: per image, deployment, or cluster
+
+Risk Scoring: prioritizes which vulnerabilities pose real operational risks
+
+Audit Trails: tracks changes and enforcement decisions
+
+🔹 7. Deployment Architecture
+┌────────────────────────────┐
+│        Central (UI/API)    │
+│  - Policy Engine           │
+│  - Database (Postgres)     │
+│  - Vulnerability DB        │
+└──────────┬─────────────────┘
+           │ Secure gRPC
+┌──────────▼─────────────────┐
+│        Sensor (per cluster)│
+│  - Talks to K8s API        │
+│  - Deploys Collector Pods  │
+└──────────┬─────────────────┘
+           │
+┌──────────▼─────────────────┐
+│       Collector (runtime)  │
+│  - Gathers system data     │
+│  - Monitors processes      │
+└────────────────────────────┘
+
+🔹 8. Typical Use Cases
+
+DevSecOps integration (secure CI/CD)
+
+Compliance monitoring (CIS, NIST, PCI)
+
+Runtime anomaly detection
+
+Multi-cluster security policy enforcement (with ACM)
+
+Vulnerability management & reporting
+
+🔹 9. Key CLI & UI Tools
+
+roxctl: CLI to interact with Central (policies, scans, integrations)
+
+ACS Console (UI): web-based dashboard for visualization, risk scores, and alerts
+
+🔹 10. Benefits
+
+✅ Shift-left security (build-time enforcement)
+✅ Unified visibility across clusters
+✅ Automated policy enforcement
+✅ Real-time threat detection
+✅ Compliance and audit readiness
+
+
+OpenShift ACS is a Kubernetes-native security platform that provides a comprehensive solution for securing containerized workloads across the entire application lifecycle (build, deploy, and run).
+
+🏛️ Core Architectural Components
+The RHACS platform is built on a distributed architecture consisting of a central management component and services that run on each cluster you want to secure.
+
+Central: This is the main "brain" and management hub of the platform.
+
+It hosts the web-based UI (the ACS Portal) and the API.
+
+It's responsible for data persistence, managing policies, and aggregating data from all secured clusters.
+
+It receives vulnerability data feeds.
+
+Central DB: A PostgreSQL database that stores all persistent data for the Central component, including configuration, policies, violations, and vulnerability information.
+
+Secured Cluster Services (per-cluster): These components are deployed on every OpenShift or Kubernetes cluster you want to monitor and protect.
+
+Sensor: This acts as the primary agent on the secured cluster. It communicates with both the local Kubernetes API and the Central component. It is responsible for pushing policies down to the cluster and sending events and violations back to Central.
+
+Admission Controller: This is a webhook that intercepts deployment requests to the Kubernetes API. It enforces security policies at deploy time, preventing non-compliant workloads (e.g., those with critical vulnerabilities or insecure configurations) from being created.
+
+Collector: This component runs as a DaemonSet (one per node) and is responsible for runtime security. It gathers low-level system data, such as process executions, network connections, and privilege escalation events from each node and container, and forwards this information to the Sensor.
+
+Scanner: This component is responsible for vulnerability analysis. It has sub-components:
+
+Scanner (V4): The newer, more powerful vulnerability scanner. It includes an Indexer (to analyze image layers) and a Matcher (to compare indexed data against vulnerability databases). It scans container images, nodes, and platform components for known Common Vulnerabilities and Exposures (CVEs).
+
+✨ Key Features & Security Capabilities
+These are the primary security functions you use within the platform, categorized by security domain.
+
+1. Vulnerability Management
+This is the core feature for identifying and managing security risks in your software supply chain and infrastructure.
+
+Comprehensive Scanning: Scans for CVEs in:
+
+Container images (in registries and running deployments)
+
+OpenShift cluster nodes
+
+Platform components (e.g., Kubernetes, OpenShift)
+
+Dashboard & Reporting: Provides a centralized "Vulnerability Management" dashboard to view, filter, and prioritize all findings.
+
+Risk-Based Prioritization: Assigns CVSS scores (Common Vulnerability Scoring System) and provides risk-based prioritization to help teams focus on the most critical vulnerabilities.
+
+CI/CD Integration: Integrates directly into continuous integration (CI) pipelines (like Jenkins, GitLab CI, OpenShift Pipelines) to scan images at build time, allowing you to "shift left" and fail builds that don't meet security policies.
+
+Red Hat Security Advisory (RHSA) Integration: Enriches CVE data with specific guidance and fix information from Red Hat for Red Hat-based images.
+
+2. Policy Management & Enforcement
+This is the engine that enforces your organization's security rules across the entire lifecycle.
+
+Rich Policy Engine: Ships with hundreds of out-of-the-box policies covering:
+
+Build-time: e.g., "Fail build if image contains Dockerfile line ADD https://..." or "Alert on CVE with CVSS score > 7.0".
+
+Deploy-time: e.g., "Block deployment of images from untrusted registries" or "Block deployments with privileged containers".
+
+Run-time: e.g., "Alert on process execution curl or wget in a production pod" or "Detect crypto-mining process signatures".
+
+Multi-Criteria Policies: Policies can be built using a wide range of criteria, including CVEs, image metadata, component versions, Kubernetes labels, annotations, and runtime activity.
+
+Enforcement Actions: Policies can be set to:
+
+Alert: Log the violation without blocking the action.
+
+Enforce: Actively block the action (e.g., fail a CI build, block a deployment via the Admission Controller).
+
+Policy as Code (Tech Preview): Enables managing policies as declarative YAML or JSON files, allowing you to store them in Git and manage them through GitOps workflows.
+
+3. Runtime Security & Threat Detection
+This capability focuses on detecting and responding to active threats in running containers.
+
+Process Baselining: Automatically learns the "normal" process activity for each deployment and creates a baseline. It can then alert on any anomalous activity (e.g., a web server spawning a shell).
+
+Threat Detection: Uses rules and behavioral analysis to detect known malicious activities like:
+
+Crypto-mining
+
+Privilege escalation
+
+Lateral movement (e.g., SSH'ing from one pod to another)
+
+Unexpected network connections
+
+Runtime Event Timeline: Provides a detailed forensic timeline of all runtime events (processes, network flows) for a pod to aid in incident investigation.
+
+4. Network Security & Segmentation
+This feature provides visibility and control over network traffic within and outside your clusters.
+
+Network Graph: A powerful visualization tool that shows all active L4 network connections between deployments, namespaces, and external services in real-time.
+
+Baseline & Anomaly Detection: Baselines "normal" network traffic and can alert on or block new, unexpected network flows that violate the baseline.
+
+Kubernetes Network Policy Generation: This is a key tool for "micro-segmentation." You can use the Network Graph to:
+
+Visualize: See which deployments should be talking.
+
+Simulate: Model the impact of a new network policy before applying it.
+
+Generate: Automatically generate the Kubernetes-native NetworkPolicy YAML required to lock down traffic, which you can then apply to the cluster.
+
+5. Compliance Management
+This helps you audit and enforce security standards and regulatory requirements.
+
+Compliance Dashboard: Provides a dedicated dashboard to track compliance status against various standards.
+
+Built-in Standards: Includes automated checks and reporting for industry benchmarks like:
+
+CIS Benchmarks (for Kubernetes, OpenShift, Docker)
+
+NIST SP 800-190 & NIST SP 800-53
+
+PCI DSS (Payment Card Industry)
+
+HIPAA (Healthcare)
+
+Evidence & Reporting: Allows you to run and export compliance reports to provide evidence to auditors.
+
+6. Configuration Management & Risk Profiling
+This focuses on hardening your environment and prioritizing risk.
+
+Security Posture Management (KSPM): Scans for cluster and workload misconfigurations based on security best practices (e.g., running as root, insecure RBAC permissions, exposed dashboards).
+
+Risk View: A dedicated dashboard that prioritizes all deployments (not just vulnerabilities) based on a calculated risk score. This score combines factors like:
+
+Critical vulnerabilities
+
+Insecure configurations
+
+Exposure to the internet
+
+Privileged access
+
+Runtime anomalies
+
+🛠️ Key Tools & Integrations
+These are the primary tools you interact with and the systems RHACS connects to.
+
+ACS Web Portal (UI): The primary graphical interface for all visualization, management, and configuration.
+
+roxctl (CLI Tool): A command-line interface used for:
+
+Automating installation and configuration.
+
+Integrating scans into CI/CD pipelines.
+
+Generating network policy connectivity maps.
+
+Running vulnerability scans from the command line.
+
+APIs: A full-featured gRPC and REST API for integrating RHACS data and functions into other tools (like SIEMs, custom scripts, etc.).
+
+Built-in Integrations: RHACS is designed to connect to the broader DevOps ecosystem:
+
+Image Registries: Red Hat Quay, OpenShift Internal Registry, Artifactory, Docker Hub, etc.
+
+CI/CD Systems: Jenkins, GitLab, OpenShift Pipelines, CircleCI, etc.
+
+Notifiers: Slack, PagerDuty, email, webhooks, etc.
+
+SIEM / Log Management: Splunk, QRadar, Sumo Logic (via log forwarding).
+
+Identity & Signing: Integrates with Sigstore for keyless signing and attestation of images.
+
+
+
+OpenShift Advanced Cluster Security (ACS) Overview
+
+ACS is a Kubernetes-native security platform for containerized applications.
+It integrates tightly with OpenShift Container Platform (OCP) and provides:
+
+Cluster visibility
+
+Vulnerability management
+
+Runtime threat detection
+
+Compliance enforcement
+
+Network policy management
+
+Risk profiling
+
+
+OpenShift Advanced Cluster Security (ACS)
+├── 1. Core Architecture
+│   ├── Central (Control Plane)
+│   │   ├── Web UI (Dashboard)
+│   │   ├── API Server (REST/gRPC)
+│   │   ├── Policy Engine
+│   │   ├── Risk Analyzer
+│   │   ├── Sensor Manager
+│   │   └── Data Store (PostgreSQL)
+│   ├── Sensor (Per Cluster)
+│   │   ├── Collects Kubernetes and container data
+│   │   ├── Deployed as DaemonSet + Deployment
+│   │   ├── Components:
+│   │   │   ├── Sensor pod (main logic)
+│   │   │   ├── Collector pod (runtime data)
+│   │   │   └── Admission Controller (optional)
+│   ├── Collector (Per Node)
+│   │   ├── Gathers runtime process, network, and syscalls
+│   │   └── Runs as DaemonSet (privileged)
+│   ├── Admission Controller
+│   │   ├── Enforces deployment policies at admission time
+│   │   └── Blocks or warns on violating deployments
+│   └── Integrations
+│       ├── CI/CD pipelines
+│       ├── Image registries
+│       ├── Vulnerability scanners
+│       ├── LDAP / SSO (RHSSO)
+│       └── External SIEM / Webhooks
+
+├── 2. Vulnerability Management
+│   ├── Image Scanning
+│   │   ├── Container image vulnerability analysis
+│   │   ├── Integrates with:
+│   │   │   ├── Red Hat Quay
+│   │   │   ├── OpenShift Image Registry
+│   │   │   ├── Docker Hub
+│   │   │   ├── JFrog Artifactory
+│   │   │   ├── Harbor
+│   │   │   └── AWS ECR / GCR / ACR
+│   ├── CVE Database
+│   │   ├── Continuously updated via Red Hat Security Data API
+│   │   └── Maps CVEs to packages/layers
+│   ├── Vulnerability Lifecycle
+│   │   ├── Detection (scan)
+│   │   ├── Prioritization (risk score)
+│   │   ├── Fix suggestion (patched image)
+│   │   └── Validation (rescan)
+│   └── Risk Context
+│       ├── Combines CVE, deployment, and runtime data
+│       ├── Highlights exploitable paths
+│       └── Risk scoring model
+
+├── 3. Compliance & Governance
+│   ├── Built-in Compliance Standards
+│   │   ├── CIS Benchmarks (Kubernetes, OpenShift)
+│   │   ├── NIST 800-53
+│   │   ├── PCI DSS
+│   │   ├── HIPAA
+│   │   └── SOC 2 / ISO 27001 mappings
+│   ├── Policy Enforcement
+│   │   ├── Customizable YAML-based policies
+│   │   ├── Enforce via:
+│   │   │   ├── Admission controller
+│   │   │   ├── CI/CD pipeline (pre-deployment)
+│   │   │   └── Runtime enforcement
+│   ├── Policy Categories
+│   │   ├── Image build
+│   │   ├── Deployment configuration
+│   │   ├── Network exposure
+│   │   ├── Secret management
+│   │   ├── Runtime behavior
+│   │   └── Compliance
+│   └── Policy Lifecycle
+│       ├── Authoring (UI/YAML)
+│       ├── Simulation (detect-only)
+│       ├── Enforcement (block/deploy)
+│       └── Auditing (history/logs)
+
+├── 4. Runtime Security
+│   ├── Runtime Threat Detection
+│   │   ├── Process activity monitoring
+│   │   ├── Network connection mapping
+│   │   ├── Suspicious process detection
+│   │   ├── File system monitoring
+│   │   └── Policy-driven alerts
+│   ├── Incident Response
+│   │   ├── Auto-quarantine containers
+│   │   ├── Block suspicious deployments
+│   │   ├── Send alerts to SIEM / PagerDuty / Slack
+│   │   └── API-triggered remediation
+│   ├── Network Graph (Topology)
+│   │   ├── Visual map of pod-to-pod communication
+│   │   ├── Highlights unexpected connections
+│   │   ├── Generates network policies automatically
+│   │   └── Supports namespace-level and deployment-level filters
+│   └── Behavioral Baselines
+│       ├── Learns normal process & network activity
+│       ├── Flags deviations
+│       └── Adaptive thresholds
+
+├── 5. CI/CD Integration
+│   ├── Build-time Scanning
+│   │   ├── Jenkins plugin
+│   │   ├── GitLab CI script
+│   │   ├── Tekton / OpenShift Pipelines
+│   │   ├── GitHub Actions integration
+│   │   └── Bitbucket Pipelines support
+│   ├── Admission Control
+│   │   ├── Pre-deployment policy check
+│   │   ├── Option to “fail build” on high CVE
+│   │   └── Enforces secure-by-default pipelines
+│   └── APIs / CLI Tools
+│       ├── roxctl CLI
+│       │   ├── roxctl image scan
+│       │   ├── roxctl deployment check
+│       │   ├── roxctl central backup
+│       │   ├── roxctl policy list
+│       │   └── roxctl sensor install
+│       └── REST/gRPC APIs for automation
+
+├── 6. Network Security
+│   ├── Network Graph (Visualizer)
+│   ├── Policy Generator
+│   │   ├── Learns traffic patterns
+│   │   ├── Suggests NetworkPolicy YAMLs
+│   │   └── Can export policies directly to OCP
+│   ├── Zero Trust Modeling
+│   │   ├── Namespace isolation checks
+│   │   ├── Ingress/Egress validation
+│   │   └── Service exposure analysis
+│   └── Integration with OCP NetworkPolicies and Service Mesh
+
+├── 7. Risk Management
+│   ├── Risk Score Calculation
+│   │   ├── CVE severity
+│   │   ├── Exploit path
+│   │   ├── Privilege level
+│   │   ├── Network exposure
+│   │   ├── Deployment configuration
+│   │   └── Runtime activity
+│   ├── Risk Dashboard
+│   │   ├── Top risky deployments
+│   │   ├── High-risk namespaces
+│   │   ├── Policy violation trends
+│   │   └── Drill-down to CVE/package
+│   └── Remediation Workflow
+│       ├── Recommendations per CVE
+│       ├── Suggested image rebuilds
+│       └── Integration with patch management tools
+
+├── 8. Integrations & APIs
+│   ├── Authentication
+│   │   ├── LDAP / Active Directory
+│   │   ├── OpenID Connect / RH-SSO
+│   │   └── OAuth
+│   ├── Notifications / Alerts
+│   │   ├── Email
+│   │   ├── Slack
+│   │   ├── PagerDuty
+│   │   ├── Jira / ServiceNow
+│   │   ├── Splunk / Syslog
+│   │   └── Webhooks
+│   ├── External Data Integrations
+│   │   ├── Clair / Trivy / Anchore for external scanning
+│   │   ├── Red Hat Quay Security Scanner
+│   │   └── SIEM / SOAR tools
+│   └── API Access
+│       ├── REST endpoints for automation
+│       ├── GraphQL interface (limited)
+│       └── gRPC for performance
+
+├── 9. Deployment & Operations
+│   ├── Deployment Modes
+│   │   ├── OperatorHub (recommended)
+│   │   ├── Helm chart
+│   │   ├── kubectl apply YAML bundle
+│   │   └── OpenShift Console plug-in
+│   ├── Backup & Restore
+│   │   ├── roxctl central backup/restore
+│   │   ├── PostgreSQL dump
+│   │   └── Object storage (S3-compatible)
+│   ├── Multi-cluster Management
+│   │   ├── Central manages multiple Sensors
+│   │   ├── Cluster grouping / labels
+│   │   └── Federation with OpenShift ACM
+│   ├── High Availability
+│   │   ├── Central HA via StatefulSet
+│   │   ├── PostgreSQL replication
+│   │   └── Sensor auto-reconnect
+│   └── Upgrades
+│       ├── Via Operator
+│       ├── Manual Helm upgrade
+│       └── Air-gapped support
+
+└── 10. Observability & Reporting
+    ├── Dashboards
+    │   ├── Risk Overview
+    │   ├── Vulnerabilities
+    │   ├── Compliance status
+    │   ├── Network graph
+    │   └── Runtime activity
+    ├── Reports
+    │   ├── PDF / CSV export
+    │   ├── Automated schedule
+    │   ├── Policy violations
+    │   ├── Compliance audit reports
+    │   └── Risk trend over time
+    ├── Metrics
+    │   ├── Prometheus metrics endpoint
+    │   └── Grafana dashboards integration
+    └── Logging
+        ├── Audit logs
+        ├── Policy enforcement logs
+        ├── Syslog integration
+        └── Fluentd / Loki integration
+
+
+| Tool                             | Purpose                                                   |
+| -------------------------------- | --------------------------------------------------------- |
+| **roxctl**                       | CLI for managing ACS (policies, clusters, backups, scans) |
+| **ACS Operator**                 | Automates install, upgrades, CRD management               |
+| **Central Web UI**               | Dashboard for policies, risks, runtime, network           |
+| **Sensor YAML generator**        | Deploys sensors to additional clusters                    |
+| **Admission Controller Webhook** | Enforces security policies at deployment time             |
+| **Network Graph**                | Visualizes and builds Kubernetes NetworkPolicies          |
+
+
+
+Data flow 
+[Cluster Sensor] → collects Kubernetes, container, and node data
+        ↓
+[Collector] → runtime system call and network data
+        ↓
+[Central] → correlates risk, policy, compliance, CVEs
+        ↓
+[PostgreSQL] → stores and indexes all findings
+        ↓
+[UI/API] → displays dashboards, enforces policies, sends alerts
+
+
+Policy Examples
+
+Block deployments running as root.
+
+Block containers using :latest tag.
+
+Alert when new privileged containers are deployed.
+
+Enforce CPU/memory limits for all namespaces.
+
+Require signed images from trusted registries.
+
+Detect cryptocurrency miners or curl/wget in containers.

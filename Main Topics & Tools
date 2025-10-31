@@ -60,8 +60,11 @@ consul
 k8gb
 
 jaeger
-dynatrace
+dynatrace 
+zipkin
 
 Black Duck Operator (Synopsys) software composition analysis (SCA) 
+sast
+dast
 
 kustomize

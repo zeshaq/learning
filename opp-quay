@@ -1,0 +1,185 @@
+
+
+OpenShift Quay
+├── 1. Core Components
+│   ├── quay-app (Quay Registry Application)
+│   │   ├── Web UI & REST API
+│   │   ├── Registry API (compatible with Docker v2)
+│   │   ├── Authentication and Authorization service
+│   │   ├── Image layer management
+│   │   ├── Tag and manifest management
+│   │   ├── Namespace and repository management
+│   │   ├── Storage backend abstraction
+│   │   └── Configuration management (via config bundle)
+│   │
+│   ├── quay-builder
+│   │   ├── Distributed build system
+│   │   ├── Build workers (Kubernetes pods)
+│   │   ├── Build queue and scheduling
+│   │   ├── Supports build triggers:
+│   │   │   ├── GitHub
+│   │   │   ├── GitLab
+│   │   │   ├── Bitbucket
+│   │   │   └── Webhook
+│   │   └── Build logs and status monitoring
+│   │
+│   ├── clair (Vulnerability Scanning Engine)
+│   │   ├── Static analysis of container images
+│   │   ├── Database of CVEs and vulnerabilities
+│   │   ├── CVE source integrations:
+│   │   │   ├── Red Hat Security Data API
+│   │   │   ├── NVD (National Vulnerability Database)
+│   │   │   ├── Ubuntu / Debian / Alpine feeds
+│   │   │   └── RHEL advisories
+│   │   ├── API for vulnerability reports
+│   │   └── Integration with Quay UI for scanning results
+│   │
+│   ├── redis
+│   │   ├── Caching layer for Quay operations
+│   │   ├── Used for rate limiting, session data, and build queues
+│   │   └── Improves API performance
+│   │
+│   ├── database (PostgreSQL)
+│   │   ├── Persistent metadata store
+│   │   ├── Users, orgs, repositories, builds, and audit events
+│   │   └── Supports high availability (HA)
+│   │
+│   ├── object storage backend
+│   │   ├── Stores image layers, manifests, and blobs
+│   │   ├── Supported backends:
+│   │   │   ├── AWS S3
+│   │   │   ├── GCP Cloud Storage
+│   │   │   ├── Azure Blob Storage
+│   │   │   ├── OpenStack Swift
+│   │   │   ├── Ceph RADOS Gateway (RGW)
+│   │   │   └── Local filesystem (for testing)
+│   │   └── Supports encryption and replication
+│
+│
+├── 2. Authentication & Authorization
+│   ├── Authentication mechanisms
+│   │   ├── Local Quay user accounts
+│   │   ├── LDAP / Active Directory
+│   │   ├── OIDC / OAuth2
+│   │   ├── GitHub / GitLab / Google OAuth
+│   │   └── Robot accounts (for automation)
+│   │
+│   ├── Authorization model
+│   │   ├── Organizations and teams
+│   │   ├── Fine-grained repository permissions:
+│   │   │   ├── Admin
+│   │   │   ├── Write
+│   │   │   ├── Read
+│   │   │   └── None
+│   │   ├── Scoped tokens (API access)
+│   │   └── Signed manifests and content trust (Cosign support)
+│
+│
+├── 3. Image Management
+│   ├── Image storage optimization
+│   │   ├── Layer deduplication
+│   │   ├── Garbage collection
+│   │   ├── Manifest schema v2
+│   │   └── OCI-compliant image support
+│   │
+│   ├── Tag management
+│   │   ├── Tag immutability
+│   │   ├── Tag expiration / pruning
+│   │   ├── Retention policies
+│   │   └── Tag signing
+│   │
+│   ├── Content management
+│   │   ├── Quota enforcement (per org/repo)
+│   │   ├── Repo visibility (private/public)
+│   │   ├── Content mirroring
+│   │   ├── Image replication
+│   │   └── Build automation via triggers
+│
+│
+├── 4. Security and Compliance
+│   ├── Clair-based vulnerability scanning
+│   ├── Policy enforcement (block vulnerable images)
+│   ├── Content trust and image signing
+│   ├── Role-based access control (RBAC)
+│   ├── Audit logs and event tracking
+│   ├── TLS/HTTPS enforced communication
+│   ├── Encrypted storage (S3 SSE / KMS)
+│   ├── Image quarantine workflows
+│   └── Integration with Red Hat Advanced Cluster Security (ACS)
+│
+│
+├── 5. Geo-Replication
+│   ├── Multi-region deployment support
+│   ├── Push replication (one-way)
+│   ├── Pull replication (on-demand)
+│   ├── Multi-primary synchronization
+│   ├── Region-aware routing
+│   └── Automatic failover and resync
+│
+│
+├── 6. Quay Operator (OpenShift Operator)
+│   ├── Manages Quay lifecycle on OpenShift
+│   ├── Automates:
+│   │   ├── Deployment
+│   │   ├── Scaling
+│   │   ├── Backup / Restore
+│   │   ├── Configuration secrets
+│   │   └── Clair and Quay integration
+│   ├── CRDs (Custom Resources)
+│   │   ├── QuayRegistry
+│   │   ├── QuayEcosystem
+│   │   ├── ClairIntegration
+│   │   └── QuayComponentStatus
+│   └── Operator-managed components
+│       ├── Quay pods
+│       ├── Redis
+│       ├── Postgres
+│       ├── Clair
+│       ├── Route / Service exposure
+│       └── Configuration bundles (config.yaml secret)
+│
+│
+├── 7. Integration & Ecosystem
+│   ├── OpenShift BuildConfig integration
+│   ├── OpenShift ImageStreams integration
+│   ├── GitLab CI/CD / Jenkins pipelines
+│   ├── ACS (Advanced Cluster Security) scanning
+│   ├── OpenShift OAuth and ServiceAccounts
+│   ├── RHACS policy sync (image scanning and enforcement)
+│   ├── Clair API consumption by ACS
+│   ├── Operator Lifecycle Manager (OLM)
+│   └── Webhooks for event notifications (Slack, Webhook URLs)
+│
+│
+├── 8. Monitoring and Logging
+│   ├── Prometheus metrics endpoints
+│   ├── Grafana dashboards (via Operator)
+│   ├── Quay system health checks
+│   ├── Build logs and audit trails
+│   ├── Event log UI
+│   ├── System usage statistics (per user/org)
+│   └── Integration with OpenShift Logging stack (EFK / Loki)
+│
+│
+└── 9. Enterprise / Optional Add-ons
+    ├── Red Hat Quay.io (managed service)
+    ├── Quay Mirror registry (for disconnected environments)
+    ├── Helm chart registry integration
+    ├── OCI artifact support (for signatures, Helm, WASM)
+    ├── Offline (air-gapped) installation support
+    ├── Custom branding and logo
+    ├── Image expiration / retention policies
+    ├── Quay Bridge Operator (connects with Red Hat SSO)
+    └── Multi-tenancy and resource isolation
+
+
+Key Integrations in OpenShift Platform Plus
+
+| Tool                                  | Integration Purpose                                         |
+| ------------------------------------- | ----------------------------------------------------------- |
+| **ACS (Advanced Cluster Security)**   | Uses Quay + Clair for image scanning and admission policies |
+| **ACM (Advanced Cluster Management)** | Deploys Quay and mirrors registries across clusters         |
+| **OpenShift Pipelines (Tekton)**      | Pushes build images to Quay                                 |
+| **OpenShift GitOps (ArgoCD)**         | Manages Quay operator manifests                             |
+| **RH SSO / Keycloak**                 | Centralized authentication                                  |
+| **Prometheus / Grafana**              | Observability and metrics                                   |

@@ -1,0 +1,272 @@
+Red Hat OpenShift Platform Plus (OCP+)
+├── 1. Core Platform: Red Hat OpenShift Container Platform (OCP)
+│   ├── 1.1 Kubernetes Core
+│   │   ├── Cluster API & Operators
+│   │   ├── Kubelet, Kube-API Server, Controller Manager, Scheduler
+│   │   ├── etcd (distributed key-value store)
+│   │   ├── CRDs (Custom Resource Definitions)
+│   │   ├── Admission Controllers
+│   │   ├── API aggregation layer
+│   │   └── RBAC, Service Accounts, Secrets, ConfigMaps
+│   │
+│   ├── 1.2 OpenShift Enhancements
+│   │   ├── OpenShift API Server
+│   │   ├── OpenShift Controller Manager
+│   │   ├── OpenShift SDN / CNI integrations (OVN-Kubernetes, Multus, Cilium)
+│   │   ├── OpenShift OAuth server
+│   │   ├── Cluster Version Operator (CVO)
+│   │   ├── Machine Config Operator (MCO)
+│   │   ├── Cluster Autoscaler
+│   │   ├── Node tuning and performance profiles
+│   │   └── Pod Security Admission (PSA)
+│   │
+│   ├── 1.3 Developer & Build Tools
+│   │   ├── Source-to-Image (S2I)
+│   │   ├── OpenShift Builds (BuildConfig, Build Pods)
+│   │   ├── ImageStreams
+│   │   ├── Internal container registry
+│   │   ├── OpenShift Pipelines (Tekton)
+│   │   ├── OpenShift GitOps (ArgoCD)
+│   │   ├── Developer Console (Web UI)
+│   │   ├── CodeReady Workspaces (Eclipse Che)
+│   │   ├── OpenShift Dev Spaces
+│   │   ├── Helm Chart integration
+│   │   ├── OperatorHub & Operator Lifecycle Manager (OLM)
+│   │   ├── CLI Tools:
+│   │   │   ├── oc
+│   │   │   ├── odo
+│   │   │   ├── kubectl
+│   │   │   └── helm
+│   │   └── Dev Sandbox & QuickStart templates
+│   │
+│   ├── 1.4 Networking
+│   │   ├── Ingress Controller (HAProxy-based)
+│   │   ├── OpenShift Routes (Layer 7 routing)
+│   │   ├── LoadBalancer / NodePort / ClusterIP services
+│   │   ├── Egress IP and Egress Firewall
+│   │   ├── Multus (multiple CNI networks)
+│   │   ├── OVN-Kubernetes SDN (default)
+│   │   ├── MetalLB (bare metal load balancing)
+│   │   ├── DNS Operator
+│   │   ├── NetworkPolicy and EgressControl
+│   │   ├── Service Mesh integration (Istio)
+│   │   └── API Gateway (via 3scale or Istio)
+│   │
+│   ├── 1.5 Storage
+│   │   ├── CSI Drivers (block, file, object)
+│   │   ├── OpenShift Data Foundation (ODF) integration
+│   │   ├── Persistent Volumes (PV/PVC)
+│   │   ├── Dynamic provisioning (RBD, CephFS)
+│   │   ├── VolumeSnapshots
+│   │   ├── Object storage gateway (RGW)
+│   │   └── Ephemeral storage and secrets encryption
+│   │
+│   ├── 1.6 Security
+│   │   ├── OpenShift OAuth / RBAC / SCC
+│   │   ├── PodSecurityPolicies (deprecated → PSA)
+│   │   ├── Security Context Constraints (SCC)
+│   │   ├── Image signing and verification
+│   │   ├── Encryption at rest (etcd / PV)
+│   │   ├── Audit logging
+│   │   ├── OAuth integration (LDAP, SSO, GitHub, OIDC)
+│   │   ├── Cluster-wide secret encryption (KMS)
+│   │   ├── Network Policies
+│   │   └── Compliance Operator (CIS/STIG scans)
+│   │
+│   ├── 1.7 Monitoring & Logging
+│   │   ├── Prometheus Operator
+│   │   ├── Alertmanager
+│   │   ├── Grafana dashboards
+│   │   ├── Cluster Monitoring Stack
+│   │   ├── OpenShift Logging Operator
+│   │   ├── LokiStack (for logging)
+│   │   ├── Elasticsearch (legacy)
+│   │   ├── Fluentd / Vector (log collection)
+│   │   └── Telemetry and Insights integration
+│   │
+│   ├── 1.8 Installer & Lifecycle
+│   │   ├── IPI (Installer Provisioned Infrastructure)
+│   │   ├── UPI (User Provisioned Infrastructure)
+│   │   ├── Assisted Installer / Agent-based install
+│   │   ├── Cluster Autoscaler
+│   │   ├── CVO (Cluster Version Operator)
+│   │   ├── Backup and Restore (velero, OADP)
+│   │   └── Day-2 Ops (scaling, upgrade, node tuning)
+│   │
+│   └── 1.9 Integrations
+│       ├── Red Hat Enterprise Linux CoreOS (RHCOS)
+│       ├── OpenShift Service Mesh
+│       ├── OpenShift Serverless (Knative)
+│       ├── OpenShift Virtualization (KubeVirt)
+│       └── GitOps and Pipelines CI/CD integration
+│
+│
+├── 2. Red Hat Advanced Cluster Management (ACM)
+│   ├── 2.1 Multi-cluster Management
+│   │   ├── Cluster import, creation, and lifecycle
+│   │   ├── Policy-based governance
+│   │   ├── Centralized upgrades and health monitoring
+│   │   ├── ManagedClusters and Hub/Spoke model
+│   │   └── Cluster deployment to AWS, Azure, GCP, vSphere, bare metal
+│   │
+│   ├── 2.2 Governance, Risk & Compliance (GRC)
+│   │   ├── Policy framework (OPA/Gatekeeper)
+│   │   ├── Config policy templates (YAML)
+│   │   ├── Security posture checks (CIS, NIST)
+│   │   ├── Remediation workflows
+│   │   └── Integration with ACS policies
+│   │
+│   ├── 2.3 Application Lifecycle
+│   │   ├── ArgoCD-based GitOps management
+│   │   ├── Multi-cluster application placement
+│   │   ├── AppSets and PlacementRules
+│   │   ├── Sync policies
+│   │   └── Health and drift detection
+│   │
+│   ├── 2.4 Observability
+│   │   ├── Centralized metrics and logging aggregation
+│   │   ├── Cluster health and status dashboards
+│   │   ├── Search API across all clusters
+│   │   └── Custom labels and inventory
+│   │
+│   └── 2.5 Integrations
+│       ├── OpenShift GitOps (ArgoCD)
+│       ├── ACS (policy enforcement)
+│       ├── Quay (registry management)
+│       ├── RH Insights & Satellite
+│       └── Integration with SSO / LDAP
+│
+│
+├── 3. Red Hat Advanced Cluster Security (ACS)
+│   ├── 3.1 Core Components
+│   │   ├── Central (management console)
+│   │   ├── Sensor (per cluster)
+│   │   ├── Collector (per node)
+│   │   ├── Admission controller webhook
+│   │   ├── Postgres (metadata DB)
+│   │   └── RHACS Operator
+│   │
+│   ├── 3.2 Security Capabilities
+│   │   ├── Image scanning (via Clair / Quay)
+│   │   ├── Runtime behavior detection
+│   │   ├── Policy enforcement (build, deploy, runtime)
+│   │   ├── Network graph and flow visualization
+│   │   ├── Risk prioritization and CVSS scoring
+│   │   ├── Kubernetes audit log correlation
+│   │   ├── Admission control integration
+│   │   └── Compliance framework (CIS, PCI-DSS, NIST)
+│   │
+│   ├── 3.3 Integrations
+│   │   ├── Quay registry
+│   │   ├── OpenShift OAuth / SSO
+│   │   ├── CI/CD systems (Jenkins, Tekton)
+│   │   ├── GitOps / ArgoCD
+│   │   ├── ACM policies
+│   │   └── External SIEM tools (Splunk, QRadar)
+│   │
+│   └── 3.4 Observability
+│       ├── Central dashboard
+│       ├── Risk reports
+│       ├── Compliance dashboards
+│       └── Alert integrations (Slack, PagerDuty, Webhook)
+│
+│
+├── 4. Red Hat Quay (Enterprise Image Registry)
+│   ├── 4.1 Quay Core
+│   │   ├── Web UI & API
+│   │   ├── Redis cache
+│   │   ├── PostgreSQL backend
+│   │   ├── Object storage (S3, Ceph, Azure)
+│   │   ├── Clair (vulnerability scanning)
+│   │   ├── Quay Builder
+│   │   └── Quay Operator (deployment automation)
+│   │
+│   ├── 4.2 Features
+│   │   ├── Authentication (LDAP, OIDC, SSO)
+│   │   ├── RBAC and Team permissions
+│   │   ├── Image signing (Cosign)
+│   │   ├── CVE scanning and blocking
+│   │   ├── Mirroring and geo-replication
+│   │   ├── Tag immutability and retention policies
+│   │   └── Integration with ACS for policy enforcement
+│
+│
+├── 5. Red Hat OpenShift Data Foundation (ODF)
+│   ├── 5.1 Storage Backends
+│   │   ├── Ceph (RBD, CephFS, RGW)
+│   │   ├── NooBaa (object data gateway)
+│   │   └── Multi-cloud object gateway
+│   │
+│   ├── 5.2 Capabilities
+│   │   ├── Block / File / Object unified storage
+│   │   ├── Dynamic provisioning via CSI
+│   │   ├── Data replication & disaster recovery
+│   │   ├── Snapshots and clones
+│   │   ├── Encryption and key management
+│   │   ├── Data resilience and self-healing
+│   │   └── Integration with Quay and ACS
+│   │
+│   └── 5.3 Management
+│       ├── ODF Operator
+│       ├── Dashboard (via OpenShift Console)
+│       └── Performance and capacity metrics
+│
+│
+├── 6. Optional Integrated Components
+│   ├── OpenShift Service Mesh (Istio-based)
+│   │   ├── Envoy sidecar proxy
+│   │   ├── Kiali dashboard
+│   │   ├── Jaeger tracing
+│   │   ├── Prometheus metrics
+│   │   └── Policy and telemetry
+│   │
+│   ├── OpenShift Serverless (Knative)
+│   │   ├── Eventing and autoscaling
+│   │   ├── Functions-as-a-Service (FaaS)
+│   │   └── Integration with Pipelines and GitOps
+│   │
+│   ├── OpenShift Virtualization (KubeVirt)
+│   │   ├── Run VMs on Kubernetes
+│   │   ├── VM templates and hotplug disks
+│   │   └── Migration from VMware
+│   │
+│   ├── OpenShift GitOps (ArgoCD)
+│   │   ├── GitOps Application CRD
+│   │   ├── Sync and health checks
+│   │   ├── Multi-environment pipeline (Dev/UAT/Prod)
+│   │   └── Integration with ACM and Pipelines
+│   │
+│   └── OpenShift Pipelines (Tekton)
+│       ├── Custom Tasks and TaskRuns
+│       ├── PipelineRuns and Triggers
+│       ├── Secrets and Workspaces
+│       ├── Build and deploy automation
+│       └── Integration with Quay, GitOps, and ACS
+│
+│
+└── 7. Platform Plus Value Additions
+    ├── Unified Hybrid Cloud Platform
+    │   ├── Multi-cluster management (ACM)
+    │   ├── Multi-layer security (ACS)
+    │   ├── Enterprise image registry (Quay)
+    │   ├── Persistent data layer (ODF)
+    │   └── Automation (GitOps, Pipelines)
+    │
+    ├── Advanced Security
+    │   ├── Policy-driven governance (ACM+ACS)
+    │   ├── Image supply chain security (Quay+ACS)
+    │   ├── Compliance enforcement
+    │   ├── Cluster risk visibility
+    │   └── Runtime anomaly detection
+    │
+    ├── Unified Observability
+    │   ├── Central monitoring dashboards
+    │   ├── Federated logging (via Loki)
+    │   ├── Cross-cluster search (ACM)
+    │   └── Global health and performance view
+    │
+    └── Enterprise Lifecycle
+        ├── Multi-cluster upgrades
+        ├── Policy-based deployment pipelines
+        ├── Compliance at scale
+        └── Backup & DR with ODF + ACM integration

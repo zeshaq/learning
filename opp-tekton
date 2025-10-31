@@ -1,0 +1,229 @@
+Red Hat OpenShift Platform Plus, which is built around Tekton (for CI/CD) and tightly integrates with OpenShift, GitOps (ArgoCD), Quay, and ACS for secure DevOps workflows.
+
+OpenShift Platform Plus
+└── OpenShift Pipelines (CI/CD Component)
+    ├── 1. Foundation
+    │   ├── Based on Tekton (Kubernetes-native CI/CD)
+    │   ├── Declarative YAML-based pipeline definitions
+    │   ├── CRD-based architecture
+    │   │   ├── Pipeline
+    │   │   ├── PipelineRun
+    │   │   ├── Task
+    │   │   ├── TaskRun
+    │   │   ├── ClusterTask
+    │   │   ├── PipelineResource (deprecated)
+    │   │   ├── Condition (deprecated)
+    │   │   ├── PipelineParam
+    │   │   └── CustomTask (for extensions)
+    │   ├── Event-driven automation via Tekton Triggers
+    │   ├── Secure, isolated build execution (Kubernetes pods)
+    │   └── Fully integrated with OpenShift RBAC, OAuth, and SCCs
+    │
+    │
+    ├── 2. Core Components (Tekton Architecture)
+    │   ├── 2.1 Pipelines Controller
+    │   │   ├── Watches CRDs and manages pipeline state
+    │   │   ├── Orchestrates TaskRuns and PipelineRuns
+    │   │   ├── Enforces concurrency and retries
+    │   │   └── Integrates with Kubernetes scheduling
+    │   │
+    │   ├── 2.2 Tekton Chains (Supply Chain Security)
+    │   │   ├── Generates signed provenance metadata (SLSA, in-toto)
+    │   │   ├── Integrates with Cosign for signing artifacts
+    │   │   ├── Stores attestation metadata in OCI registry (Quay)
+    │   │   ├── Enforces trusted build workflows
+    │   │   └── Compatible with Red Hat Quay and ACS policy engine
+    │   │
+    │   ├── 2.3 Tekton Triggers
+    │   │   ├── EventListener (listens for webhook events)
+    │   │   ├── TriggerBinding (maps event payloads)
+    │   │   ├── TriggerTemplate (creates PipelineRuns dynamically)
+    │   │   ├── TriggerInterceptor (GitHub, GitLab, Bitbucket, etc.)
+    │   │   └── Event-driven CI/CD (push, PR, tag events)
+    │   │
+    │   ├── 2.4 Tekton Dashboard (OpenShift Console Integration)
+    │   │   ├── Visual editor for Pipelines and Tasks
+    │   │   ├── Live status view of PipelineRuns and logs
+    │   │   ├── Access to Tekton Hub and sample tasks
+    │   │   ├── Integration with OpenShift Developer Console
+    │   │   └── Integration with GitOps (ArgoCD)
+    │   │
+    │   └── 2.5 Tekton Results (Optional Add-on)
+    │       ├── Stores pipeline run history and metadata
+    │       ├── Exposes API for analytics and dashboards
+    │       └── Enables audit trail and compliance tracking
+    │
+    │
+    ├── 3. OpenShift-Specific Integrations
+    │   ├── 3.1 Build Integration
+    │   │   ├── Source-to-Image (S2I) build steps
+    │   │   ├── BuildConfig and ImageStream interoperability
+    │   │   ├── Automatic image push to Quay / internal registry
+    │   │   ├── Tag management and image promotion
+    │   │   └── Integration with OpenShift Builds API
+    │   │
+    │   ├── 3.2 Git Integration
+    │   │   ├── GitHub / GitLab / Bitbucket webhooks
+    │   │   ├── Trigger-based automation
+    │   │   ├── Git-clone reusable Task
+    │   │   ├── Git secret and SSH key integration
+    │   │   └── Integration with OpenShift OAuth for Git providers
+    │   │
+    │   ├── 3.3 Container Registry Integration
+    │   │   ├── Red Hat Quay (primary registry)
+    │   │   ├── OpenShift internal image registry
+    │   │   ├── DockerHub, ECR, GCR, ACR
+    │   │   ├── Push and pull credentials from Secrets
+    │   │   └── Image signing via Tekton Chains + Cosign
+    │   │
+    │   ├── 3.4 GitOps Integration
+    │   │   ├── Sync pipeline outputs with ArgoCD
+    │   │   ├── Update GitOps manifests automatically
+    │   │   ├── Automated promotion between environments (dev→uat→prod)
+    │   │   ├── ArgoCD ApplicationSet + Tekton integration
+    │   │   └── CI/CD + CD unification
+    │   │
+    │   ├── 3.5 ACS (Advanced Cluster Security) Integration
+    │   │   ├── Policy checks during build
+    │   │   ├── Image vulnerability scan step (pre-deploy)
+    │   │   ├── Enforce “fail pipeline on critical CVE”
+    │   │   ├── Admission controller integration
+    │   │   └── Security reports in ACS Central dashboard
+    │   │
+    │   ├── 3.6 ODF (Data Foundation) Integration
+    │   │   ├── Persistent storage for build artifacts
+    │   │   ├── VolumeClaims for caching and large builds
+    │   │   ├── Data persistence for Tekton Results
+    │   │   └── Artifact storage via S3-compatible RGW or NooBaa
+    │   │
+    │   └── 3.7 Service Mesh Integration
+    │       ├── Secure network policies for build pods
+    │       ├── Tracing (Jaeger) and observability (Kiali)
+    │       ├── Service-to-service telemetry for pipeline steps
+    │       └── Zero-trust networking with mTLS between components
+    │
+    │
+    ├── 4. Developer Features
+    │   ├── 4.1 Pipeline Templates and Catalog
+    │   │   ├── Tekton Hub (community tasks)
+    │   │   ├── Red Hat certified Tekton Catalog
+    │   │   ├── Reusable task bundles (OCI-based)
+    │   │   ├── Examples: buildah, kaniko, s2i, maven, npm, gradle
+    │   │   └── Pipeline-as-Code examples
+    │   │
+    │   ├── 4.2 Developer Console (Web UI)
+    │   │   ├── Visual pipeline designer
+    │   │   ├── Task linking and visualization
+    │   │   ├── Live logs and status updates
+    │   │   ├── Start / stop / rerun pipelines
+    │   │   ├── Parameter injection and secret mounting
+    │   │   └── Metrics integration (Prometheus)
+    │   │
+    │   ├── 4.3 CLI Tools
+    │   │   ├── `tkn` (Tekton CLI)
+    │   │   ├── `oc pipelines` (OpenShift CLI plugin)
+    │   │   ├── Pipeline and task creation commands
+    │   │   ├── Log streaming and status monitoring
+    │   │   └── Integration with GitHub Actions / Jenkins
+    │   │
+    │   ├── 4.4 Secrets and Credentials
+    │   │   ├── Kubernetes Secrets, ConfigMaps, and ServiceAccounts
+    │   │   ├── Docker registry credentials (pull/push)
+    │   │   ├── Git SSH keys and tokens
+    │   │   ├── Vault or external secret operators
+    │   │   └── Parameter substitution in secure manner
+    │   │
+    │   └── 4.5 Workspaces and Resources
+    │       ├── Shared persistent volumes between tasks
+    │       ├── Ephemeral scratch volumes
+    │       ├── Artifact passing between tasks
+    │       ├── Multiple input/output workspaces
+    │       └── Read/write permissions via SCCs
+    │
+    │
+    ├── 5. Security and Compliance
+    │   ├── 5.1 Supply Chain Security (Tekton Chains)
+    │   │   ├── Build provenance generation (in-toto, SLSA levels)
+    │   │   ├── Signature storage in Quay
+    │   │   ├── Integration with ACS policies
+    │   │   └── Verify image signatures at deployment
+    │   │
+    │   ├── 5.2 Runtime and Build Security
+    │   │   ├── Build runs in non-root, isolated pods
+    │   │   ├── SCC enforcement and SELinux contexts
+    │   │   ├── Ephemeral pods reduce attack surface
+    │   │   └── Automatic cleanup after PipelineRun completion
+    │   │
+    │   ├── 5.3 Policy Enforcement
+    │   │   ├── “Fail on CVE” policies from ACS
+    │   │   ├── OPA/Gatekeeper integration (via ACM)
+    │   │   ├── Signed artifact enforcement
+    │   │   └── Pipeline-level role segregation (developer vs approver)
+    │   │
+    │   └── 5.4 Audit and Compliance
+    │       ├── Tekton Results database for historical audit
+    │       ├── Integration with Loki/Elasticsearch for logs
+    │       ├── Compliance dashboards (ACS + ACM)
+    │       ├── Time-stamped provenance records
+    │       └── Immutable log retention via ODF
+    │
+    │
+    ├── 6. Observability and Monitoring
+    │   ├── Prometheus metrics for pipeline runs and duration
+    │   ├── Grafana dashboards (via OpenShift Monitoring)
+    │   ├── Logs collected via Loki/Fluentd
+    │   ├── Build metrics (success/failure trends)
+    │   ├── Alerting via Alertmanager (failed builds, long runtimes)
+    │   └── Integration with OpenShift Web Console for health visualization
+    │
+    │
+    ├── 7. Enterprise CI/CD Patterns
+    │   ├── 7.1 Multi-Stage Pipelines
+    │   │   ├── Build → Test → Scan → Deploy
+    │   │   ├── Artifact promotion through environments
+    │   │   ├── Gate approvals and manual interventions
+    │   │   └── Integration with GitOps (for deployment)
+    │   │
+    │   ├── 7.2 Multi-Cluster Deployment
+    │   │   ├── ACM-managed multi-cluster delivery
+    │   │   ├── ArgoCD ApplicationSets
+    │   │   └── Environment-specific pipelines (dev/uat/prod)
+    │   │
+    │   ├── 7.3 Hybrid CI/CD Workflows
+    │   │   ├── Tekton + Jenkins compatibility (via Tekton Jenkins Operator)
+    │   │   ├── Tekton + GitHub Actions hybrid triggers
+    │   │   ├── External runner integration (Buildah, Kaniko)
+    │   │   └── REST API integration for custom CI tools
+    │   │
+    │   └── 7.4 Disaster Recovery and Backup
+    │       ├── Pipeline definition backup (GitOps)
+    │       ├── Tekton Results and logs backup via ODF
+    │       ├── Cluster migration via ACM
+    │       └── Pipeline rehydration via Git
+    │
+    │
+    └── 8. Ecosystem & Add-ons
+        ├── Tekton Hub (task marketplace)
+        ├── Tekton Catalog (official Red Hat tasks)
+        ├── Tekton Chains (security)
+        ├── Tekton Triggers (eventing)
+        ├── Tekton Results (historical runs)
+        ├── OpenShift Pipelines Operator (manages lifecycle)
+        ├── OpenShift GitOps Operator (ArgoCD)
+        ├── ACS Operator (security policies)
+        ├── ACM Operator (multi-cluster delivery)
+        ├── Quay Operator (registry integration)
+        ├── ODF Operator (storage persistence)
+        └── Integration with DevSpaces for in-browser development
+
+
+| Category           | Description                                            |
+| ------------------ | ------------------------------------------------------ |
+| **Core Engine**    | Tekton-based pipelines (Tasks, PipelineRuns, etc.)     |
+| **Event Handling** | Tekton Triggers, EventListeners, Git webhooks          |
+| **Security**       | Tekton Chains, ACS enforcement, image signing          |
+| **Storage**        | ODF-backed persistence, artifact caching               |
+| **Integration**    | Quay (registry), GitOps (ArgoCD), ACM (multi-cluster)  |
+| **Observability**  | Prometheus, Grafana, Logs, Tekton Results              |
+| **Dev Tools**      | CLI (`tkn`), Dashboard, Templates, Catalog             |
+| **Compliance**     | Provenance (in-toto), audit logs, signature validation |

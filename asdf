@@ -1,0 +1,3 @@
+
+
+/images/pxeboot/vmlinuz initrd=/images/pxeboot/initrd.img,/images/ignition.img coreos.live.rootfs_url=https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/36.20220522.3.0/x86_64/fedora-coreos-36.20220522.3.0-live-rootfs.x86_64.img ignition.firstboot ignition.platform.id=metal ignition.config.url=http://12.12.80.10:8000/bootstrap.ign

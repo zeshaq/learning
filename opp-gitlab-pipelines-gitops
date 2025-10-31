@@ -1,0 +1,35 @@
+
+
+enterprise-grade CI/CD pattern, and combining GitLab, OpenShift Pipelines (Tekton), and OpenShift GitOps (Argo CD) gives you a fully automated, auditable, and GitOps-driven delivery system.
+
+┌──────────────────────────────┐
+│        Developer Stage       │
+│  GitLab Repository (source)  │
+│  └─ Code + Dockerfile + CI   │
+└──────────────────────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│      Build & Test Stage      │
+│  OpenShift Pipelines (Tekton)│
+│  └─ CI: Build image, test,   │
+│     push to internal registry│
+└──────────────────────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│   Deploy & Promote Stage     │
+│   OpenShift GitOps (Argo CD) │
+│   └─ CD: Sync Git manifests  │
+│      from GitOps repo        │
+└──────────────────────────────┘
+
+
+| Component                                | Purpose                                                                           |
+| ---------------------------------------- | --------------------------------------------------------------------------------- |
+| **GitLab**                               | Source code management, CI/CD triggers                                            |
+| **OpenShift Pipelines (Tekton)**         | Executes builds/tests, builds container images, and updates GitOps repo manifests |
+| **OpenShift GitOps (Argo CD)**           | Continuously deploys and reconciles environments from Git repositories            |
+| **OpenShift Container Registry or Quay** | Stores built container images                                                     |
+| **Application Git Repository**           | Holds source code, Dockerfile, and GitLab CI config                               |
+| **GitOps Repository**                    | Holds Kubernetes/OpenShift manifests (Helm/Kustomize) for UAT/Stage/Prod          |
